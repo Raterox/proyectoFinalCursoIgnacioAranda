@@ -1,10 +1,12 @@
 package clases;
 
-public class Bebida {
+import java.util.ArrayList;
+
+public class Bebida extends Producto{
 	private boolean alcoholica;
-	
-	public Bebida(boolean alcoholica) {
-		super();
+
+	public Bebida(String nombre, float precio, ArrayList<Alergeno> alergenos, boolean alcoholica) {
+		super(nombre, precio, alergenos);
 		this.alcoholica = alcoholica;
 	}
 
@@ -18,8 +20,14 @@ public class Bebida {
 
 	@Override
 	public String toString() {
-		return "Es Alcoholica? " + isAlcoholica() ;
+		return "Bebida [alcoholica=" + alcoholica + ", getPrecio()=" + getPrecio() + ", getAlergenos()="
+				+ getAlergenos() + ", toString()=" + super.toString() + ", getNombre()=" + getNombre() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
+
+	
+	
+	
 	
 	
 }

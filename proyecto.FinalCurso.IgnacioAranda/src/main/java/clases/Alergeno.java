@@ -1,10 +1,10 @@
 package clases;
 
-public class Alergeno {
+public class Alergeno extends EntidadConNombre{
 	private char simbolo;
 	
-	public Alergeno(char simbolo) {
-		super();
+	public Alergeno(String nombre,char simbolo) {
+		super(nombre);
 		this.simbolo = simbolo;
 	}
 
