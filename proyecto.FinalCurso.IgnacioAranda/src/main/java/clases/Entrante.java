@@ -1,7 +1,7 @@
 package clases;
 
 import java.util.ArrayList;
-
+//TODO IMPLEMENTAR DAO
 public class Entrante extends Producto{
 
 	public Entrante(String nombre, float precio, ArrayList<Alergeno> alergenos) {
@@ -10,7 +10,7 @@ public class Entrante extends Producto{
 	}
 	
 	public String toString() {
-		return super.toString();
+		return "Bebida: \n\t" + super.toString();
 	}
 	
 	

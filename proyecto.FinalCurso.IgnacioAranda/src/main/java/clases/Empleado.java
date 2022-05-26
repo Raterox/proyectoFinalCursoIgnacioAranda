@@ -6,7 +6,7 @@ public class Empleado extends EntidadConNombre{
 	private String apellido;
 	private float sueldo;
 	private Puesto puesto;
-
+//TODO Implementar DAO
 	public Empleado(String nombre, String apellido, float sueldo, Puesto puesto) {
 		super(nombre);
 		this.apellido = apellido;

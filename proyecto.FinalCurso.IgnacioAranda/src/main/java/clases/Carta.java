@@ -1,7 +1,7 @@
 package clases;
 
 import java.util.ArrayList;
-
+//TODO IMPLEMENTAR DAO
 public class Carta {
 	private ArrayList<Producto> productos;
 

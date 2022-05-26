@@ -1,5 +1,5 @@
 package clases;
-
+//TODO Implementar DAO
 public class LineaDePedido {
 	private Producto producto;
 	private short cantidad;	

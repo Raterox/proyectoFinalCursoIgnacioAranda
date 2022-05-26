@@ -1,5 +1,5 @@
 package clases;
-
+//TODO IMPLEMENTAR DAO
 import java.util.ArrayList;
 
 public class Postre extends Producto{
@@ -8,5 +8,10 @@ public class Postre extends Producto{
 		super(nombre, precio, alergenos);
 		// TODO Auto-generated constructor stub
 	}
+
+	public String toString() {
+		return "Postre\n\t: " + super.toString();
+	}
+	
 	
 }

@@ -1,7 +1,7 @@
 package clases;
 
 import java.util.ArrayList;
-
+//TODO IMPLEMENTAR DAO
 public class Bebida extends Producto{
 	private boolean alcoholica;
 
@@ -20,9 +20,7 @@ public class Bebida extends Producto{
 
 	@Override
 	public String toString() {
-		return "Bebida [alcoholica=" + alcoholica + ", getPrecio()=" + getPrecio() + ", getAlergenos()="
-				+ getAlergenos() + ", toString()=" + super.toString() + ", getNombre()=" + getNombre() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + "]";
+		return "Bebida: \n\t" + super.toString() + "\tAlcoholica: " + isAlcoholica();
 	}
 
 	

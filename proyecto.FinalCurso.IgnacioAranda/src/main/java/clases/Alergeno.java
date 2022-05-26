@@ -1,5 +1,5 @@
 package clases;
-
+//TODO IMPLEMENTAR DAO
 public class Alergeno extends EntidadConNombre{
 	private char simbolo;
 	
@@ -18,7 +18,7 @@ public class Alergeno extends EntidadConNombre{
 
 	@Override
 	public String toString() {
-		return "Simbolo del Alergeno: " + getSimbolo();
+		return "Alergeno: \n\t" + super.toString() + ", Simbolo: " + getSimbolo();
 	}
 	
 	
