@@ -1,5 +1,10 @@
 package clases;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import utils.UtilsDB;
+
 public class EntidadConNombre {
 	private String nombre;
 	
@@ -12,7 +17,7 @@ public class EntidadConNombre {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombre(String nombre) throws SQLException {
 		this.nombre = nombre;
 	}
 
