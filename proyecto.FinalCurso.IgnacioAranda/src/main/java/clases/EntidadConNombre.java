@@ -12,6 +12,9 @@ public class EntidadConNombre {
 		super();
 		this.nombre = nombre;
 	}
+	public EntidadConNombre() {
+		
+	}
 
 	public String getNombre() {
 		return nombre;
