@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public abstract class UtilsDB {
-	private static final String cadenaConexion = "jdbc:mysql://localhost/trabajofinalprogramjacion";
+	private static final String cadenaConexion = "jdbc:mysql://localhost/trabajofinalprogramacion";
 	private static final String usuarioBD = "root";
 	private static final String contrasenaBD = "";
 	private static Connection conexion;
