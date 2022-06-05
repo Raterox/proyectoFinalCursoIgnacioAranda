@@ -10,13 +10,14 @@ public class Ventana extends JFrame{
 	
 	public Ventana() {
 		pantallas=new HashMap<String,JPanel>();
+		pantallas.put("menu",new Menu(this));
 		
 		//Se que no funciona pero no entiendo porque
 		this.setIconImage(new ImageIcon("./Imagenes/logo.png").getImage());
 		
-		this.setSize(400,400);
+		this.setSize(800,450);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setTitle("Restaurante los Carpinchos");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

@@ -22,7 +22,7 @@ public class Empleado extends EntidadConNombre {
 			throws SQLException, ContrasenaVaciaException {
 		super(nombre);
 		Statement query = UtilsDB.conectarBD();
-		if (query.executeUpdate("insert into empleado values('" + nombre + "','" + apellido + "','" + sueldo + "',"
+		if (query.executeUpdate("INSERT INTO empleado VALUES('" + nombre + "','" + apellido + "','" + sueldo + "',"
 				+ puesto + "','" + contrasena + ")") > 0) {
 			this.apellido = apellido;
 			this.sueldo = sueldo;
@@ -39,7 +39,7 @@ public class Empleado extends EntidadConNombre {
 		super(nombre);
 		Statement smt = UtilsDB.conectarBD();
 
-		ResultSet cursor = smt.executeQuery("select * from usuario where nombre='" +
+		ResultSet cursor = smt.executeQuery("SELECT * FROM usuario WHERE nombre='" +
 
 				nombre + "'");
 
@@ -105,7 +105,7 @@ public class Empleado extends EntidadConNombre {
 		Statement smt = UtilsDB.conectarBD();
 
 		smt.executeUpdate(
-				"update empleado set contrasena='" + contrasena + "' where contrasena='" + this.contrasena + "'");
+				"UPDATE empleado SET contrasena='" + contrasena + "' WHERE contrasena='" + this.contrasena + "'");
 
 		UtilsDB.desconectarBD();
 
@@ -119,7 +119,7 @@ public class Empleado extends EntidadConNombre {
 		Statement smt = UtilsDB.conectarBD();
 		boolean ret;
 		try {
-			ret = smt.executeUpdate("delete from empleado where nombre='" + super.getNombre() + "'") > 0;
+			ret = smt.executeUpdate("DELETE FROM empleado WHERE nombre='" + super.getNombre() + "'") > 0;
 			super.setNombre(null);
 			this.contrasena = null;
 		} catch (SQLException e) {
