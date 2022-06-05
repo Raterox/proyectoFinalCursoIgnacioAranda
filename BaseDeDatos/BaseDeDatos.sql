@@ -87,7 +87,7 @@ ALTER TABLE linea_de_pedido
 
 CREATE TABLE mesa(
     id_mesa NUMERIC(2) PRIMARY KEY,
-    numero NUMERIC(2)
+    numero_mesa NUMERIC(2)
 );
 
 CREATE TABLE mesa_linea_de_pedido(
@@ -96,6 +96,11 @@ CREATE TABLE mesa_linea_de_pedido(
 );
 
 CREATE TABLE zona(
-    nombre VARCHAR(20) PRIMARY KEY
+    nombre_zona VARCHAR(20) PRIMARY KEY
+);
+
+CREATE TABLE mesa_zona(
+    id_mesa NUMERIC(2),
+    nombre_zona VARCHAR(20)
 );
 
