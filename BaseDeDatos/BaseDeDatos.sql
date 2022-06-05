@@ -16,80 +16,83 @@ CREATE TABLE alergeno(
 );
 
 CREATE TABLE principal(
-    id NUMERIC(2) PRIMARY KEY,
+    id_principal NUMERIC(2) PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL,
     precio NUMERIC(4,2)    
 );
 
 CREATE TABLE entrante(
-    id NUMERIC(2) PRIMARY KEY,
+    id_entrante NUMERIC(2) PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL,
     precio NUMERIC(4,2)    
 );
 
 CREATE TABLE postre(
-    id NUMERIC(2) PRIMARY KEY,
+    id_postre NUMERIC(2) PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL,
     precio NUMERIC(4,2)    
 );
 
 CREATE TABLE bebida(
-    id NUMERIC(2) PRIMARY KEY,
+    id_bebida NUMERIC(2) PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL,
     precio NUMERIC(4,2),
     alcoholica BOOLEAN NOT NULL
 );
 
 CREATE TABLE principal_alergeno(
-    nombre_principal VARCHAR(20),
+    id_principal NUMERIC(2),
     nombre_alergeno VARCHAR(20)
 );
 
 CREATE TABLE entrante_alergeno(
-    nombre_entrante VARCHAR(20),
+    id_entrante NUMERIC(2),
     nombre_alergeno VARCHAR(20)
 );
 
 CREATE TABLE postre_alergeno(
-    nombre_postre VARCHAR(20),
+    id_postre NUMERIC(2),
     nombre_alergeno VARCHAR(20)
 );
 
 CREATE TABLE bebida_alergeno(
-    nombre_bebida VARCHAR(20),
+    id_bebida NUMERIC(2),
     nombre_alergeno VARCHAR(20)
 );
 
 CREATE TABLE linea_de_pedido(
-    id NUMERIC(2) PRIMARY KEY AUTO_INCREMENT,
+    id_linea_de_pedido NUMERIC(2) PRIMARY KEY,
     cantidad NUMERIC(2)
 );
 
 ALTER TABLE linea_de_pedido
 	ADD CONSTRAINT fk_linea_de_pedido_principal
-	FOREIGN KEY (id)
-	REFERENCES principal(id);
+	FOREIGN KEY (id_linea_de_pedido)
+	REFERENCES principal(id_principal);
     
 ALTER TABLE linea_de_pedido
 	ADD CONSTRAINT fk_linea_de_pedido_entrante
-	FOREIGN KEY (id)
-	REFERENCES entrante(id);
+	FOREIGN KEY (id_linea_de_pedido)
+	REFERENCES entrante(id_entrante);
 
 ALTER TABLE linea_de_pedido
 	ADD CONSTRAINT fk_linea_de_pedido_postre
-	FOREIGN KEY (id)
-	REFERENCES postre(id);
+	FOREIGN KEY (id_linea_de_pedido)
+	REFERENCES postre(id_postre);
 
 ALTER TABLE linea_de_pedido
 	ADD CONSTRAINT fk_linea_de_pedido_bebida
-	FOREIGN KEY (id)
-	REFERENCES bebida(id);
+	FOREIGN KEY (id_linea_de_pedido)
+	REFERENCES bebida(id_bebida);
 
 CREATE TABLE mesa(
+    id_mesa NUMERIC(2) PRIMARY KEY,
     numero NUMERIC(2)
 );
 
 CREATE TABLE mesa_linea_de_pedido(
-    numero NUMERIC(2),
-    id NUMERIC(2)
+    id_mesa NUMERIC(2),
+    id_linea_de_pedido NUMERIC(2)
 );
+
+
