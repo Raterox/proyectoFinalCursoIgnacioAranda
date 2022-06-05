@@ -95,4 +95,7 @@ CREATE TABLE mesa_linea_de_pedido(
     id_linea_de_pedido NUMERIC(2)
 );
 
+CREATE TABLE zona(
+    nombre VARCHAR(20) PRIMARY KEY
+);
 
