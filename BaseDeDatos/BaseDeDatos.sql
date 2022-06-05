@@ -103,4 +103,3 @@ CREATE TABLE mesa_zona(
     id_mesa NUMERIC(2),
     nombre_zona VARCHAR(20)
 );
-
