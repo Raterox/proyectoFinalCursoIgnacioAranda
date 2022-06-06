@@ -11,6 +11,9 @@ public class Alergeno extends EntidadConNombre{
 
 	public Alergeno(String nombre, char simbolo) throws SQLException, NombreVacioException, SimboloVacioException {
 		super(nombre);
+		if(SimboloVacio(simbolo)) {
+			throw new SimboloVacioException("Tienes que introducir un Simbolo");
+		}
 		this.simbolo = simbolo;
 	}
 
@@ -21,10 +24,14 @@ public class Alergeno extends EntidadConNombre{
 	public void setSimbolo(char simbolo) {
 		this.simbolo = simbolo;
 	}
+	
+	private boolean SimboloVacio(char simbolo) {
+		return simbolo=='\0';
+	}
 
 	@Override
 	public String toString() {
-		return "Alergeno [simbolo=" + simbolo + ", Nombre()=" + super.toString() + "]";
+		return "Alergeno [Simbolo: " + simbolo + ", Nombre: " + super.toString() + "]";
 	}
 	
 	

@@ -17,16 +17,18 @@ import exception.SueldoVacioException;
 import utils.UtilsDB;
 
 public class Empleado extends EntidadConNombre {
-	private short id;
 	private String apellido;
 	private float sueldo;
 	private Puesto puesto;
 	private String contrasena;
 
 	/**
-	 * Funcion Registrar empleado, se inserta el nombre, apellido, sueldo, puesto y contrasena y se crea un
-	 * empleado en la base de datos con esos valores.
-	 * Las excepcion ContrasenaVaciaException, UsuarioVacioException, ApellidoVacioException, SueldoVacioException, PuestoVacioException, saltara cuando el valor referido introducido este vacio
+	 * Funcion Registrar empleado, se inserta el nombre, apellido, sueldo, puesto y
+	 * contrasena y se crea un empleado en la base de datos con esos valores. Las
+	 * excepcion ContrasenaVaciaException, UsuarioVacioException,
+	 * ApellidoVacioException, SueldoVacioException, PuestoVacioException, saltara
+	 * cuando el valor referido introducido este vacio
+	 * 
 	 * @param nombre
 	 * @param apellido
 	 * @param sueldo
@@ -34,28 +36,21 @@ public class Empleado extends EntidadConNombre {
 	 * @param contrasena
 	 * @throws SQLException
 	 * @throws ContrasenaVaciaException
-	 * @throws PuestoVacioException, SueldoVacioException 
+	 * @throws PuestoVacioException,    SueldoVacioException
 	 */
-	public Empleado(short id,String nombre, String apellido, float sueldo, Puesto puesto, String contrasena)
-			throws SQLException, IdVaciaException, NombreVacioException, ApellidoVacioException, PuestoVacioException, ContrasenaVaciaException {
-		super(id,nombre);
-		Statement query = UtilsDB.conectarBD();
-		if (query.executeUpdate("INSERT INTO empleado VALUES('" + id + "','" + nombre + "','" + apellido + "','" + sueldo + "',"
-				+ puesto + "','" + contrasena + ")") > 0) {
-			this.id=id;
-			setApellido(apellido);
-			setSueldo(sueldo);
-			setPuesto(puesto);
-			setContrasena(contrasena);
-		} else {
-			throw new SQLException("No se ha podido insertar el empleado");
-		}
-		UtilsDB.desconectarBD();
+	public Empleado(String nombre, String apellido, float sueldo, Puesto puesto, String contrasena)
+			throws SQLException, IdVaciaException, NombreVacioException, ApellidoVacioException, PuestoVacioException,
+			ContrasenaVaciaException {
+		super(nombre);
+		setApellido(apellido);
+		setSueldo(sueldo);
+		setPuesto(puesto);
+		setContrasena(contrasena);
 	}
 
-	public Empleado(short id,String nombre, String contrasena)
+	public Empleado(String nombre, String contrasena)
 			throws SQLException, ContrasenaIncorrectaException, EmpleadoNoExisteException, NombreVacioException {
-		super(id,nombre);
+		super(nombre);
 		Statement smt = UtilsDB.conectarBD();
 
 		ResultSet cursor = smt.executeQuery("SELECT * FROM usuario WHERE id='" +
@@ -73,7 +68,7 @@ public class Empleado extends EntidadConNombre {
 				throw new ContrasenaIncorrectaException("La contrasena no es correcta");
 
 			}
-			super.setNombre(id,cursor.getString("nombre"));
+			super.setNombre(id, cursor.getString("nombre"));
 		} else {
 
 			UtilsDB.desconectarBD();
@@ -85,9 +80,7 @@ public class Empleado extends EntidadConNombre {
 		UtilsDB.desconectarBD();
 
 	}
-	public Empleado() {
-		super();
-	}
+
 
 	public String getApellido() {
 		return apellido;
@@ -123,8 +116,7 @@ public class Empleado extends EntidadConNombre {
 		}
 		Statement smt = UtilsDB.conectarBD();
 
-		smt.executeUpdate(
-				"UPDATE empleado SET contrasena='" + contrasena + "' WHERE id='" + this.id + "'");
+		smt.executeUpdate("UPDATE empleado SET contrasena='" + contrasena + "' WHERE id='" + this.id + "'");
 
 		UtilsDB.desconectarBD();
 
