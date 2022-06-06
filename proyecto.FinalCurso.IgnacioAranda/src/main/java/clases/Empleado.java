@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.ArrayList;
+
 import enums.Puesto;
 import exception.ApellidoVacioException;
 import exception.ContrasenaVaciaException;
@@ -28,6 +30,15 @@ public class Empleado extends EntidadConNombre {
 			throws NombreVacioException, ContrasenaVaciaException {
 		super(nombre);
 		setContrasena(contrasena);
+	}
+	
+	public boolean existeEmpleado(Empleado empleadoBuscado, ArrayList<Empleado> empleados) {
+		for(short i = 0; i<empleados.size(); i++) {
+			if(empleados.get(i)==empleadoBuscado) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

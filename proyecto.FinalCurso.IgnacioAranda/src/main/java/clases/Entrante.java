@@ -1,14 +1,17 @@
 package clases;
 
 import java.util.ArrayList;
-//TODO IMPLEMENTAR DAO
-public class Entrante extends Producto{
+import exception.NombreVacioException;
+import exception.PrecioCeroException;
 
-	public Entrante(String nombre, float precio, ArrayList<Alergeno> alergenos) {
+public class Entrante extends Producto{
+	
+	public Entrante(String nombre, float precio, ArrayList<Alergeno> alergenos)
+			throws NombreVacioException, PrecioCeroException {
 		super(nombre, precio, alergenos);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String toString() {
 		return "Bebida: \n\t" + super.toString();
 	}

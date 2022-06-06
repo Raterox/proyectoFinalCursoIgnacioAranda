@@ -40,7 +40,7 @@ public class Producto extends EntidadConNombre{
 
 	@Override
 	public String toString() {
-		return "Producto:\n\t" + super.toString() + "\n\tPrecio: " + getPrecio() + " euros" + "\n\tAlergenos: " + getAlergenos() + "\n";
+		return super.toString() + "\n\tPrecio: " + getPrecio() + " euros" + "\n\tAlergenos: " + getAlergenos() + "\n";
 	}
 	
 }

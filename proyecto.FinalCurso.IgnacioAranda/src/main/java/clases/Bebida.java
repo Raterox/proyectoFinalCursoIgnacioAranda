@@ -1,20 +1,25 @@
 package clases;
 
 import java.util.ArrayList;
-//TODO IMPLEMENTAR DAO
-public class Bebida extends Producto{
-	private boolean alcoholica;
 
-	public Bebida(String nombre, float precio, ArrayList<Alergeno> alergenos, boolean alcoholica) {
+import enums.Alcoholica;
+import exception.NombreVacioException;
+import exception.PrecioCeroException;
+
+public class Bebida extends Producto{
+	private Alcoholica alcoholica;
+	
+	public Bebida(String nombre, float precio, ArrayList<Alergeno> alergenos)
+			throws NombreVacioException, PrecioCeroException {
 		super(nombre, precio, alergenos);
-		this.alcoholica = alcoholica;
+		// TODO Auto-generated constructor stub
 	}
 
-	public boolean isAlcoholica() {
+	public Alcoholica isAlcoholica() {
 		return alcoholica;
 	}
 
-	public void setAlcoholica(boolean alcoholica) {
+	public void setAlcoholica(Alcoholica alcoholica) {
 		this.alcoholica = alcoholica;
 	}
 
