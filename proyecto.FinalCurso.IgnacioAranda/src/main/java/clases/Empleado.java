@@ -6,27 +6,46 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import enums.Puesto;
+import exception.ApellidoVacioException;
 import exception.ContrasenaIncorrectaException;
 import exception.ContrasenaVaciaException;
 import exception.EmpleadoNoExisteException;
+import exception.IdVaciaException;
+import exception.NombreVacioException;
+import exception.PuestoVacioException;
+import exception.SueldoVacioException;
 import utils.UtilsDB;
 
 public class Empleado extends EntidadConNombre {
+	private short id;
 	private String apellido;
 	private float sueldo;
 	private Puesto puesto;
 	private String contrasena;
 
-//TODO Implementar DAO
-	public Empleado(String nombre, String apellido, float sueldo, Puesto puesto, String contrasena)
-			throws SQLException, ContrasenaVaciaException {
-		super(nombre);
+	/**
+	 * Funcion Registrar empleado, se inserta el nombre, apellido, sueldo, puesto y contrasena y se crea un
+	 * empleado en la base de datos con esos valores.
+	 * Las excepcion ContrasenaVaciaException, UsuarioVacioException, ApellidoVacioException, SueldoVacioException, PuestoVacioException, saltara cuando el valor referido introducido este vacio
+	 * @param nombre
+	 * @param apellido
+	 * @param sueldo
+	 * @param puesto
+	 * @param contrasena
+	 * @throws SQLException
+	 * @throws ContrasenaVaciaException
+	 * @throws PuestoVacioException, SueldoVacioException 
+	 */
+	public Empleado(short id,String nombre, String apellido, float sueldo, Puesto puesto, String contrasena)
+			throws SQLException, IdVaciaException, NombreVacioException, ApellidoVacioException, PuestoVacioException, ContrasenaVaciaException {
+		super(id,nombre);
 		Statement query = UtilsDB.conectarBD();
-		if (query.executeUpdate("INSERT INTO empleado VALUES('" + nombre + "','" + apellido + "','" + sueldo + "',"
+		if (query.executeUpdate("INSERT INTO empleado VALUES('" + id + "','" + nombre + "','" + apellido + "','" + sueldo + "',"
 				+ puesto + "','" + contrasena + ")") > 0) {
-			this.apellido = apellido;
-			this.sueldo = sueldo;
-			this.puesto = puesto;
+			this.id=id;
+			setApellido(apellido);
+			setSueldo(sueldo);
+			setPuesto(puesto);
 			setContrasena(contrasena);
 		} else {
 			throw new SQLException("No se ha podido insertar el empleado");
@@ -34,14 +53,14 @@ public class Empleado extends EntidadConNombre {
 		UtilsDB.desconectarBD();
 	}
 
-	public Empleado(String nombre, String contrasena)
-			throws SQLException, ContrasenaIncorrectaException, EmpleadoNoExisteException {
-		super(nombre);
+	public Empleado(short id,String nombre, String contrasena)
+			throws SQLException, ContrasenaIncorrectaException, EmpleadoNoExisteException, NombreVacioException {
+		super(id,nombre);
 		Statement smt = UtilsDB.conectarBD();
 
-		ResultSet cursor = smt.executeQuery("SELECT * FROM usuario WHERE nombre='" +
+		ResultSet cursor = smt.executeQuery("SELECT * FROM usuario WHERE id='" +
 
-				nombre + "'");
+				id + "'");
 
 		if (cursor.next()) {
 
@@ -54,7 +73,7 @@ public class Empleado extends EntidadConNombre {
 				throw new ContrasenaIncorrectaException("La contrasena no es correcta");
 
 			}
-			super.setNombre(cursor.getString("nombre"));
+			super.setNombre(id,cursor.getString("nombre"));
 		} else {
 
 			UtilsDB.desconectarBD();
@@ -114,41 +133,6 @@ public class Empleado extends EntidadConNombre {
 
 	private boolean contrasenaVacia(String pass) {
 		return pass.isBlank();
-	}
-	public boolean eliminar() {
-		Statement smt = UtilsDB.conectarBD();
-		boolean ret;
-		try {
-			ret = smt.executeUpdate("DELETE FROM empleado WHERE nombre='" + super.getNombre() + "'") > 0;
-			super.setNombre(null);
-			this.contrasena = null;
-		} catch (SQLException e) {
-			UtilsDB.desconectarBD();
-			return false;
-		}
-		UtilsDB.desconectarBD();
-		return ret;
-	}
-	public static ArrayList<Empleado> getTodos() {
-		Statement smt = UtilsDB.conectarBD();
-		ArrayList<Empleado> res = new ArrayList<Empleado>();
-
-		try {
-			ResultSet devuelveUsuario = smt.executeQuery("SELECT * from EMPLEADO");
-			while (devuelveUsuario.next()) {
-				Empleado actual = new Empleado();
-				
-				actual.setNombre(devuelveUsuario.getString("nombre"));
-				actual.contrasena = devuelveUsuario.getString("contrasena");
-
-				res.add(actual);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		UtilsDB.desconectarBD();
-		return res;
 	}
 
 	@Override
