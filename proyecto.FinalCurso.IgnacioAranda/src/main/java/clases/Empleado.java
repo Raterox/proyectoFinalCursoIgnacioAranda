@@ -119,20 +119,20 @@ public class Empleado extends EntidadConNombre {
 
 	public void setContrasena(String contrasena) throws SQLException, ContrasenaVaciaException {
 		if (contrasenaVacia(contrasena)) {
-			throw new ContrasenaVaciaException("La contraseña no puede estar vacia.");
+			throw new ContrasenaVaciaException("La contrasena no puede estar vacia.");
 		}
 		Statement smt = UtilsDB.conectarBD();
 
 		smt.executeUpdate(
-				"UPDATE empleado SET contrasena='" + contrasena + "' WHERE contrasena='" + this.contrasena + "'");
+				"UPDATE empleado SET contrasena='" + contrasena + "' WHERE id='" + this.id + "'");
 
 		UtilsDB.desconectarBD();
 
 		this.contrasena = contrasena;
 	}
 
-	private boolean contrasenaVacia(String pass) {
-		return pass.isBlank();
+	private boolean contrasenaVacia(String cont) {
+		return cont.isBlank();
 	}
 
 	@Override
