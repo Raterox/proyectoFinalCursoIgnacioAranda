@@ -1,20 +1,11 @@
 package clases;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import enums.Puesto;
 import exception.ApellidoVacioException;
-import exception.ContrasenaIncorrectaException;
 import exception.ContrasenaVaciaException;
-import exception.EmpleadoNoExisteException;
-import exception.IdVaciaException;
 import exception.NombreVacioException;
 import exception.PuestoVacioException;
 import exception.SueldoVacioException;
-import utils.UtilsDB;
 
 public class Empleado extends EntidadConNombre {
 	private String apellido;
@@ -22,25 +13,10 @@ public class Empleado extends EntidadConNombre {
 	private Puesto puesto;
 	private String contrasena;
 
-	/**
-	 * Funcion Registrar empleado, se inserta el nombre, apellido, sueldo, puesto y
-	 * contrasena y se crea un empleado en la base de datos con esos valores. Las
-	 * excepcion ContrasenaVaciaException, UsuarioVacioException,
-	 * ApellidoVacioException, SueldoVacioException, PuestoVacioException, saltara
-	 * cuando el valor referido introducido este vacio
-	 * 
-	 * @param nombre
-	 * @param apellido
-	 * @param sueldo
-	 * @param puesto
-	 * @param contrasena
-	 * @throws SQLException
-	 * @throws ContrasenaVaciaException
-	 * @throws PuestoVacioException,    SueldoVacioException
-	 */
+
 	public Empleado(String nombre, String apellido, float sueldo, Puesto puesto, String contrasena)
-			throws SQLException, IdVaciaException, NombreVacioException, ApellidoVacioException, PuestoVacioException,
-			ContrasenaVaciaException {
+			throws NombreVacioException, ApellidoVacioException, PuestoVacioException,
+			ContrasenaVaciaException, SueldoVacioException {
 		super(nombre);
 		setApellido(apellido);
 		setSueldo(sueldo);
@@ -49,36 +25,9 @@ public class Empleado extends EntidadConNombre {
 	}
 
 	public Empleado(String nombre, String contrasena)
-			throws SQLException, ContrasenaIncorrectaException, EmpleadoNoExisteException, NombreVacioException {
+			throws NombreVacioException, ContrasenaVaciaException {
 		super(nombre);
-		Statement smt = UtilsDB.conectarBD();
-
-		ResultSet cursor = smt.executeQuery("SELECT * FROM usuario WHERE id='" +
-
-				id + "'");
-
-		if (cursor.next()) {
-
-			this.contrasena = cursor.getString("contrasena");
-
-			if (!this.contrasena.equals(contrasena)) {
-
-				UtilsDB.desconectarBD();
-
-				throw new ContrasenaIncorrectaException("La contrasena no es correcta");
-
-			}
-			super.setNombre(id, cursor.getString("nombre"));
-		} else {
-
-			UtilsDB.desconectarBD();
-
-			throw new EmpleadoNoExisteException("No existe ese email en la BD");
-
-		}
-
-		UtilsDB.desconectarBD();
-
+		setContrasena(contrasena);
 	}
 
 
@@ -86,7 +35,10 @@ public class Empleado extends EntidadConNombre {
 		return apellido;
 	}
 
-	public void setApellido(String apellido) {
+	public void setApellido(String apellido) throws ApellidoVacioException {
+		if(apellidoVacio(apellido)) {
+			throw new ApellidoVacioException("El apellido esta vacio");
+		}
 		this.apellido = apellido;
 	}
 
@@ -94,7 +46,10 @@ public class Empleado extends EntidadConNombre {
 		return sueldo;
 	}
 
-	public void setSueldo(float sueldo) {
+	public void setSueldo(float sueldo) throws SueldoVacioException {
+		if(sueldoVacio(sueldo)) {
+			throw new SueldoVacioException("El sueldo esta vacio");
+		}
 		this.sueldo = sueldo;
 	}
 
@@ -102,7 +57,10 @@ public class Empleado extends EntidadConNombre {
 		return puesto;
 	}
 
-	public void setPuesto(Puesto puesto) {
+	public void setPuesto(Puesto puesto) throws PuestoVacioException {
+		if(puestoVacio(puesto)) {
+			throw new PuestoVacioException("Tienes que seleccionar un puesto");
+		}
 		this.puesto = puesto;
 	}
 
@@ -110,22 +68,26 @@ public class Empleado extends EntidadConNombre {
 		return contrasena;
 	}
 
-	public void setContrasena(String contrasena) throws SQLException, ContrasenaVaciaException {
+	public void setContrasena(String contrasena) throws ContrasenaVaciaException {
 		if (contrasenaVacia(contrasena)) {
 			throw new ContrasenaVaciaException("La contrasena no puede estar vacia.");
 		}
-		Statement smt = UtilsDB.conectarBD();
-
-		smt.executeUpdate("UPDATE empleado SET contrasena='" + contrasena + "' WHERE id='" + this.id + "'");
-
-		UtilsDB.desconectarBD();
-
 		this.contrasena = contrasena;
 	}
-
+	private boolean apellidoVacio(String apell) {
+		return apell.isBlank();
+	}
+	private boolean sueldoVacio(float sueldo) {
+		return sueldo==0;
+	}
+	private boolean puestoVacio(Puesto puesto) {
+		return puesto.toString().isBlank();
+	}
+	
 	private boolean contrasenaVacia(String cont) {
 		return cont.isBlank();
 	}
+	
 
 	@Override
 	public String toString() {
