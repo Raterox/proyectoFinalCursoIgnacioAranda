@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class Restaurante {
 	private float ingresosTotales;
 	private ArrayList<Zona> zonas;
-	private ArrayList<Producto> productoALaVenta;
+	private Carta carta;
 	
-	public Restaurante(float ingresosTotales, ArrayList<Zona> zonas, ArrayList<Producto> productoALaVenta) {
-		super();
-		this.ingresosTotales = ingresosTotales;
-		this.zonas = zonas;
-		this.productoALaVenta = productoALaVenta;
+	public Restaurante(float ingresosTotales, ArrayList<Zona> zonas, Carta carta) {
+		setIngresosTotales(ingresosTotales);
+		setZonas(zonas);
+		setCarta(carta);
 	}
 
 	public float getIngresosTotales() {
@@ -30,18 +29,20 @@ public class Restaurante {
 		this.zonas = zonas;
 	}
 
-	public ArrayList<Producto> getProductoALaVenta() {
-		return productoALaVenta;
+	public Carta getCarta() {
+		return carta;
 	}
 
-	public void setProductoALaVenta(ArrayList<Producto> productoALaVenta) {
-		this.productoALaVenta = productoALaVenta;
+	public void setCarta(Carta carta) {
+		this.carta = carta;
+	}
+	public void aumentarIngreso(float ingreso) {
+		this.ingresosTotales += ingreso;
 	}
 
 	@Override
 	public String toString() {
-		return "Informacion del Restaurante: \n\tIngresos Totales: " + getIngresosTotales() + "\n\tZonas: " + getZonas() + "\n\tProducto A La Venta: "
-				+ getProductoALaVenta();
+		return "Informacion del Restaurante: \n\tIngresos Totales: " + getIngresosTotales() + "\n\tZonas: " + getZonas() + "\n\tCarta: " + getCarta();
 	}
 	
 	

@@ -1,12 +1,15 @@
 package clases;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import exception.NombreVacioException;
 //TODO IMPLEMENTAR  DAO
 public class Zona extends EntidadConNombre{
 	private ArrayList<Mesa> mesas;
 
-	public Zona(String nombre, ArrayList<Mesa> mesas) {
-		super(nombre);
+	public Zona(String nombre, ArrayList<Mesa> mesas) throws SQLException, NombreVacioException {
+		super((short)0, nombre);
 		this.mesas = mesas;
 	}
 

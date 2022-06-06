@@ -8,12 +8,8 @@ import exception.NombreVacioException;
 public class Alergeno extends EntidadConNombre{
 	private char simbolo;
 
-	public Alergeno() {
-		super();
-	}
-
-	public Alergeno(short id, String nombre, char simbolo) throws SQLException, NombreVacioException {
-		super(id, nombre);
+	public Alergeno(String nombre, char simbolo) throws SQLException, NombreVacioException {
+		super(nombre);
 		this.simbolo = simbolo;
 	}
 
