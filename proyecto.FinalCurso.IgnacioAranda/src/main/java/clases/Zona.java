@@ -1,13 +1,15 @@
 package clases;
 
 import java.util.ArrayList;
+
+import exception.NombreVacioException;
 //TODO IMPLEMENTAR  DAO
 public class Zona extends EntidadConNombre{
 	private ArrayList<Mesa> mesas;
 
-	public Zona(String nombre, ArrayList<Mesa> mesas) {
+	public Zona(String nombre, ArrayList<Mesa> mesas) throws NombreVacioException {
 		super(nombre);
-		this.mesas = mesas;
+		setMesas(mesas);
 	}
 
 	public ArrayList<Mesa> getMesas() {

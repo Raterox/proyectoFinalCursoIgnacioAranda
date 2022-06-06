@@ -5,9 +5,8 @@ public class LineaDePedido {
 	private short cantidad;	
 	
 	public LineaDePedido(Producto producto, short cantidad) {
-		super();
-		this.producto = producto;
-		this.cantidad = cantidad;
+		setProducto(producto);
+		setCantidad(cantidad);
 	}
 	public Producto getProducto() {
 		return producto;
@@ -23,7 +22,7 @@ public class LineaDePedido {
 	}
 	@Override
 	public String toString() {
-		return "LineaDePedido:\n\t" + getProducto() + "\n\tCantidad: " + getCantidad() + "\n";
+		return getProducto() + "\tCantidad: " + getCantidad() + "\n";
 	}
 	
 	

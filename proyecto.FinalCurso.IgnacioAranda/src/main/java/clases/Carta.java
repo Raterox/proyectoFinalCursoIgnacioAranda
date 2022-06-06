@@ -6,8 +6,7 @@ public class Carta {
 	private ArrayList<Producto> productos;
 
 	public Carta(ArrayList<Producto> productos) {
-		super();
-		this.productos = productos;
+		setProductos(productos);
 	}
 
 	public ArrayList<Producto> getProductos() {
@@ -20,7 +19,7 @@ public class Carta {
 
 	@Override
 	public String toString() {
-		return "Lista de productos de la carta: " + getProductos();
+		return "Carta: \n" + getProductos();
 	}
 	
 	
