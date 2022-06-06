@@ -134,7 +134,7 @@ public class Empleado extends EntidadConNombre {
 		ArrayList<Empleado> res = new ArrayList<Empleado>();
 
 		try {
-			ResultSet devuelveUsuario = smt.executeQuery("select * from empleado");
+			ResultSet devuelveUsuario = smt.executeQuery("SELECT * from EMPLEADO");
 			while (devuelveUsuario.next()) {
 				Empleado actual = new Empleado();
 				
