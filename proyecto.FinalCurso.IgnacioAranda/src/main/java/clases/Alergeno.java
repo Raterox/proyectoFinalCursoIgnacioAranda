@@ -9,17 +9,8 @@ import exception.SimboloVacioException;
 public class Alergeno extends EntidadConNombre{
 	private char simbolo;
 
-<<<<<<< HEAD
 	public Alergeno(String nombre, char simbolo) throws SQLException, NombreVacioException, SimboloVacioException {
 		super(nombre);
-=======
-	public Alergeno() {
-		super();
-	}
-
-	public Alergeno(short id, String nombre, char simbolo) throws SQLException, NombreVacioException {
-		super(id, nombre);
->>>>>>> parent of 99a52cb (Limpieza del Programa 1)
 		this.simbolo = simbolo;
 	}
 
