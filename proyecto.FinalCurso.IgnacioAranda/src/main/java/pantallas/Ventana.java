@@ -10,7 +10,7 @@ public class Ventana extends JFrame{
 	
 	public Ventana() {
 		pantallas=new HashMap<String,JPanel>();
-		pantallas.put("menu",new Menu(this));
+		pantallas.put("Inicio",new Inicio(this));
 		
 		//Se que no funciona pero no entiendo porque
 		this.setIconImage(new ImageIcon("./Imagenes/logo.png").getImage());
@@ -21,7 +21,7 @@ public class Ventana extends JFrame{
 		this.setTitle("Restaurante los Carpinchos");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.setContentPane(this.pantallas.get("menu"));
+		this.setContentPane(this.pantallas.get("Inicio"));
 		
 		this.setVisible(true);
 		
