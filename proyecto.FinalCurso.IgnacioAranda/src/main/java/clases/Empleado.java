@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import enums.Puesto;
 import exception.ApellidoVacioException;
 import exception.ContrasenaVaciaException;
+import exception.EmpleadoNoExisteException;
 import exception.NombreVacioException;
 import exception.PuestoVacioException;
 import exception.SueldoVacioException;
@@ -32,15 +33,7 @@ public class Empleado extends EntidadConNombre {
 		setContrasena(contrasena);
 	}
 	
-	public boolean existeEmpleado(Empleado empleadoBuscado, ArrayList<Empleado> empleados) {
-		for(short i = 0; i<empleados.size(); i++) {
-			if(empleados.get(i)==empleadoBuscado) {
-				return true;
-			}
-		}
-		return false;
-	}
-
+	
 
 	public String getApellido() {
 		return apellido;

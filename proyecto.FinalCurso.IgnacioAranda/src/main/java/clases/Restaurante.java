@@ -50,6 +50,7 @@ public class Restaurante {
 		this.empleados = empleados;
 	}
 	
+	
 	public void imprimirTodosLosEmpleados(ArrayList<Empleado> empleados) throws IOException {
 		File carpeta = new File("./documentosRestaurante");
 		if(!carpeta.exists()) {

@@ -24,6 +24,15 @@ public class Producto extends EntidadConNombre{
 		setTipoProducto(tipoProducto);
 	}
 	
+	public Producto(String nombre, float precio, TipoProducto tipoProducto) throws NombreVacioException, PrecioCeroException, PuestoVacioException {
+		super(nombre);
+		if(precioCero(precio)) {
+			throw new PrecioCeroException("El precio no puede ser cero");
+		}
+		setPrecio(precio);
+		setTipoProducto(tipoProducto);
+	}
+	
 	public Producto(String nombre, float precio, ArrayList<Alergeno> alergenos, TipoProducto tipoProducto, Alcoholica alcoholica) throws NombreVacioException, PrecioCeroException, PuestoVacioException {
 		super(nombre);
 		if(precioCero(precio)) {
@@ -31,6 +40,16 @@ public class Producto extends EntidadConNombre{
 		}
 		setPrecio(precio);
 		setAlergenos(alergenos);
+		setTipoProducto(tipoProducto);
+		setAlcoholica(alcoholica);
+	}
+	
+	public Producto(String nombre, float precio, TipoProducto tipoProducto, Alcoholica alcoholica) throws NombreVacioException, PrecioCeroException, PuestoVacioException {
+		super(nombre);
+		if(precioCero(precio)) {
+			throw new PrecioCeroException("El precio no puede ser cero");
+		}
+		setPrecio(precio);
 		setTipoProducto(tipoProducto);
 		setAlcoholica(alcoholica);
 	}
