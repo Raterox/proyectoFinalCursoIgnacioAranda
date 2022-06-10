@@ -99,7 +99,10 @@ public class Producto extends EntidadConNombre{
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n\tPrecio: " + getPrecio() + " euros" + "\n\tAlergenos: " + getAlergenos() + "\n";
+		return super.getNombre() + "\n\tPrecio: " + getPrecio() + " euros" + "\n\tAlergenos: " + getAlergenos() + "\n";
+	}
+	public String toStringNoAlergeno() {
+		return super.getNombre() + " || Precio: " + getPrecio() + " euros.";
 	}
 	
 }

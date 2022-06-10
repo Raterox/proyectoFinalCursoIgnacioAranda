@@ -30,7 +30,10 @@ public class Mesa {
 		this.numero = numero;
 	}
 	
-	public void imprimirTodosCuenta(ArrayList<LineaDePedido> cuenta, byte numero) throws IOException {
+	public void imprimirTodosCuenta() throws IOException {
+		ArrayList<LineaDePedido> cuenta = this.getCuenta();
+		byte numero = this.getNumero();
+		short total = 0;
 		File carpeta = new File("./documentosRestaurante");
 		if(!carpeta.exists()) {
 			carpeta.mkdir();
@@ -38,8 +41,10 @@ public class Mesa {
 		FileWriter txt = new FileWriter("./documentosRestaurante/CuentaMesa" + numero + ".txt");
 		txt.write("Mesa: " + numero + "\n\n");
 		for(short i = 0; i<cuenta.size(); i++) {
-			txt.write(cuenta.get(i).toString() + "\n");
+			txt.write(cuenta.get(i).toString() + " || Total: " + cuenta.get(i).getCantidad() * cuenta.get(i).getProducto().getPrecio() + " euros\n");
+			total +=cuenta.get(i).getCantidad() * cuenta.get(i).getProducto().getPrecio();
 		}
+		txt.write("\nTotal Cuenta: " + total + " euros"); 
 		txt.flush();
 		txt.close();
 	}
@@ -47,7 +52,7 @@ public class Mesa {
 
 	@Override
 	public String toString() {
-		return "Mesa Numero" + getNumero() + "\n\t" + getCuenta();
+		return "Mesa " + getNumero();
 	}
 	
 	

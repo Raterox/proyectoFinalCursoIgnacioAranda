@@ -22,7 +22,7 @@ public class LineaDePedido {
 	}
 	@Override
 	public String toString() {
-		return getProducto() + "\tCantidad: " + getCantidad() + "\n";
+		return producto.toStringNoAlergeno() + " || Cantidad: " + getCantidad();
 	}
 	
 	

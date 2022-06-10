@@ -22,7 +22,7 @@ public class Zona extends EntidadConNombre{
 
 	@Override
 	public String toString() {
-		return "Zona:\n\t" + super.toString() + "\n\tMesas: " + getMesas(); 
+		return super.getNombre(); 
 	}
 	
 }

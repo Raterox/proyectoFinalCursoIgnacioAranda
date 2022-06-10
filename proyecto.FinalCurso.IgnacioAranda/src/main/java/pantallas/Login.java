@@ -47,10 +47,10 @@ public class Login extends JPanel {
 		setBackground(SystemColor.activeCaption);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		JLabel lblRestaurante = new JLabel("Restaurante Los Carpinchos");
@@ -106,14 +106,14 @@ public class Login extends JPanel {
 		gbc_textFieldContrasena.gridx = 8;
 		gbc_textFieldContrasena.gridy = 5;
 		add(textPassContrasena, gbc_textFieldContrasena);
-				
-				BotonSalir btnSalir = new BotonSalir("Salir");
-						GridBagConstraints gbc_btnSalir = new GridBagConstraints();
-						gbc_btnSalir.gridwidth = 2;
-						gbc_btnSalir.insets = new Insets(0, 0, 0, 5);
-						gbc_btnSalir.gridx = 14;
-						gbc_btnSalir.gridy = 6;
-						add(btnSalir, gbc_btnSalir);
+		
+		BotonSalir button = new BotonSalir("Salir");
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.anchor = GridBagConstraints.SOUTH;
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 15;
+		gbc_button.gridy = 6;
+		add(button, gbc_button);
 
 		// Acciones:
 
@@ -124,13 +124,13 @@ public class Login extends JPanel {
 				String contrasena = new String(textPassContrasena.getPassword());
 				try {
 					Empleado empleadoComprobar = new Empleado(usuario, contrasena);
-					
-					ventana.empleadoLogado = existeEmpleado(empleadoComprobar, ventana.empleados);
+
+					ventana.empleadoLogado = empleadoComprobar.existeEmpleado(ventana.restaurante.getEmpleados());
 					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + ventana.empleadoLogado.getNombre(),
 							"Login Correcto", JOptionPane.PLAIN_MESSAGE);
-					if(ventana.empleadoLogado.getPuesto().equals(Puesto.ADMINISTRADOR)) {
+					if (ventana.empleadoLogado.getPuesto().equals(Puesto.ADMINISTRADOR)) {
 						ventana.cambiarAPantalla("InicioAdmin");
-					}else {
+					} else {
 						ventana.cambiarAPantalla("Inicio");
 					}
 
@@ -152,20 +152,5 @@ public class Login extends JPanel {
 			}
 		});
 	}
-	public Empleado existeEmpleado(Empleado empleadoBuscado, ArrayList<Empleado> empleados) throws EmpleadoNoExisteException {
-		boolean existe = false;
-		short posEmpleado=0;
-		for(short i = 0; i<empleados.size(); i++) {
-			if((empleados.get(i).getNombre().equals(empleadoBuscado.getNombre()))&&(empleados.get(i).getContrasena().equals(empleadoBuscado.getContrasena()))){
-				existe = true;
-				posEmpleado=i;
-			}
-		}
-		if(existe==false) {
-			System.out.println("Estoy aqui");
-			throw new EmpleadoNoExisteException("El empleado no existe");
-		}else {
-			return empleados.get(posEmpleado);
-		}
-	}
+
 }
