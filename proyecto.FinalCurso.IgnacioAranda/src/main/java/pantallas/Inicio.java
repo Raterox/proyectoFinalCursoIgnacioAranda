@@ -149,6 +149,11 @@ public class Inicio extends JPanel {
 		add(btnBotonSalir);
 
 		Boton btnGestionar = new Boton("Gestionar");
+		btnGestionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ventana.cambiarAPantalla("GestionMesa", zonaSeleccionada, mesaSeleccionada);
+			}
+		});
 		btnGestionar.setBounds(10, 336, 89, 23);
 		add(btnGestionar);
 
