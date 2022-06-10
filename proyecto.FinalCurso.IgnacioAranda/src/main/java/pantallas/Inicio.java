@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
@@ -51,7 +52,7 @@ public class Inicio extends JPanel {
 	private Mesa mesaSeleccionada;
 	private ArrayList<Mesa> mesas;
 	private ArrayList<Zona> zonas;
-	private ArrayList<LineaDePedido> cuenta;	
+	private ArrayList<LineaDePedido> cuenta;
 
 	public Inicio(Ventana v) {
 		this.ventana = v;
@@ -62,21 +63,22 @@ public class Inicio extends JPanel {
 
 		setBackground(SystemColor.activeCaption);
 		setLayout(null);
-		
+
 		DefaultListCellRenderer renderer = new DefaultListCellRenderer();
 		renderer.setHorizontalAlignment(SwingConstants.CENTER);
 
 		final JList listaZonas = new JList();
 		zonas = ventana.restaurante.getZonas();
 		listaZonas.setModel(new AbstractListModel() {
-			public int getSize() { 
+			public int getSize() {
 				return zonas.size();
 			}
+
 			public Object getElementAt(int index) {
 				return zonas.get(index);
 			}
 		});
-		
+
 		JScrollPane listaZonasScroll = new JScrollPane(listaZonas);
 		listaZonas.setCellRenderer(renderer);
 		listaZonasScroll.setBounds(352, 47, 139, 250);
@@ -92,14 +94,15 @@ public class Inicio extends JPanel {
 		final JList listaMesas = new JList();
 		mesas = zonaSeleccionada.getMesas();
 		listaMesas.setModel(new AbstractListModel() {
-			public int getSize() { 
+			public int getSize() {
 				return mesas.size();
 			}
+
 			public Object getElementAt(int index) {
 				return mesas.get(index);
 			}
 		});
-		
+
 		final JScrollPane listaMesasScroll = new JScrollPane(listaMesas);
 		listaMesas.setCellRenderer(renderer);
 		listaMesasScroll.setBounds(501, 46, 131, 250);
@@ -126,23 +129,19 @@ public class Inicio extends JPanel {
 
 		final JList listaProductos = new JList();
 		cuenta = mesaSeleccionada.getCuenta();
-		final String[] valores2 = new String[cuenta.size()];
-		for(int i = 0; i<valores2.length; i++) {
-			valores2[i] = cuenta.get(i).toString();
-		}
 		listaProductos.setModel(new AbstractListModel() {
-			String [] values = valores2;
 			public int getSize() {
-				return values.length;
+				return cuenta.size();
 			}
+
 			public Object getElementAt(int index) {
-				return values[index];
+				return cuenta.get(index);
 			}
 		});
-		
-		listaProductos.setCellRenderer(renderer);
+
 		listaProductos.setEnabled(false);
-		JScrollPane listaProductosScroll = new JScrollPane(listaProductos);
+		final JScrollPane listaProductosScroll = new JScrollPane(listaProductos);
+		listaProductos.setCellRenderer(renderer);
 		panelProductos.add(listaProductosScroll, BorderLayout.CENTER);
 
 		BotonSalir btnBotonSalir = new BotonSalir("Salir");
@@ -168,40 +167,46 @@ public class Inicio extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					zonaSeleccionada = (Zona) listaZonas.getSelectedValue();
-					System.out.println("Fuera del bucle");
 					short numMesas = (short) zonaSeleccionada.getMesas().size();
+					ArrayList<Mesa> mesasDeZonaSeleccionadaCopia = new ArrayList<>(zonaSeleccionada.getMesas());
 					mesas.clear();
-					System.out.println(numMesas);
-					for(int i = 0; i<zonaSeleccionada.getMesas().size(); i++) {
-						System.out.println("Dentro del bucle");
-						mesas.add(zonaSeleccionada.getMesas().get(i));
-						System.out.println(zonaSeleccionada.getMesas().get(i));
+					System.out.println("Zona " + zonaSeleccionada);
+					for (int i = 0; i < numMesas; i++) {
+						mesas.add(mesasDeZonaSeleccionadaCopia.get(i));
+						System.out.println(mesasDeZonaSeleccionadaCopia.get(i));
 					}
 					listaMesas.repaint();
 					listaMesasScroll.repaint();
 				}
 			}
 		});
-		
+
 		listaMesas.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					mesaSeleccionada = (Mesa) listaMesas.getSelectedValue();
+					short numLineas = (short) mesaSeleccionada.getCuenta().size();
+					ArrayList<LineaDePedido> lineasDeZonaSeleccionadaCopia = new ArrayList<>(
+							mesaSeleccionada.getCuenta());
 					cuenta.clear();
-					for(short i = 0; i<mesaSeleccionada.getCuenta().size(); i++) {
-						cuenta.add(mesaSeleccionada.getCuenta().get(i));
+					System.out.println("Mesa " + zonaSeleccionada);
+					for (int i = 0; i < numLineas; i++) {
+						cuenta.add(lineasDeZonaSeleccionadaCopia.get(i));
+						System.out.println(lineasDeZonaSeleccionadaCopia.get(i));
 					}
 					listaProductos.repaint();
+					listaProductosScroll.repaint();
 				}
 			}
 		});
-		
+
 		btnImprimirTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					mesaSeleccionada.imprimirTodosCuenta();
-					JOptionPane.showMessageDialog(ventana, "Ya se ha impreso la cuenta de la mesa " + mesaSeleccionada.getNumero(),
+					JOptionPane.showMessageDialog(ventana,
+							"Ya se ha impreso la cuenta de la mesa " + mesaSeleccionada.getNumero(),
 							"Impresion Finalizada", JOptionPane.PLAIN_MESSAGE);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

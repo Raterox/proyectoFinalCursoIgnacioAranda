@@ -91,11 +91,13 @@ public class Ventana extends JFrame {
 			Producto sexInTheBeach = new Producto("Sex in The Beach", 6.2f, TipoProducto.BEBIDA, Alcoholica.SI);
 			Producto chorizoSegoviano = new Producto("Chorizo Segoviano", 15.4f, TipoProducto.ENTRANTE);
 			Producto tartaDeQueso = new Producto("Tarta de Queso", 15.4f, lecheYHuevos, TipoProducto.POSTRE);
+			
 
 			LineaDePedido linea1 = new LineaDePedido(fileteConPatatas, (short) 4);
 			LineaDePedido linea2 = new LineaDePedido(sexInTheBeach, (short) 2);
 			LineaDePedido linea3 = new LineaDePedido(chorizoSegoviano, (short) 3);
 			LineaDePedido linea4 = new LineaDePedido(tartaDeQueso, (short) 2);
+			
 
 			ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 			listaProductos.add(fileteConPatatas);
@@ -112,24 +114,35 @@ public class Ventana extends JFrame {
 			cuenta1.add(linea3);
 			cuenta1.add(linea4);
 			
+			ArrayList<LineaDePedido> cuenta2 = new ArrayList<LineaDePedido>();
+			cuenta2.add(linea1);
+			cuenta2.add(linea2);
+			cuenta2.add(linea3);
+			
+			ArrayList<LineaDePedido> cuenta3 = new ArrayList<LineaDePedido>();
+			cuenta3.add(linea1);
+			cuenta3.add(linea2);
+			
+						
 
 			Mesa mesa1 = new Mesa(cuenta1, (byte) 1);
-			Mesa mesa2 = new Mesa(cuenta1, (byte) 2);
-			Mesa mesa3 = new Mesa(cuenta1, (byte) 3);
+			Mesa mesa2 = new Mesa(cuenta2, (byte) 2);
+			Mesa mesa3 = new Mesa(cuenta3, (byte) 3);
 
 			ArrayList<Mesa> salonMesas = new ArrayList<Mesa>();
 			salonMesas.add(mesa1);
 			salonMesas.add(mesa2);
 			salonMesas.add(mesa3);
 			ArrayList<Mesa> terrazaMesas = new ArrayList<Mesa>();
-			terrazaMesas.add(mesa2);
+			terrazaMesas.add(mesa1);
 			
 			ArrayList<Mesa> paseoMesas = new ArrayList<Mesa>();
-			terrazaMesas.add(mesa3);
-			
+			paseoMesas.add(mesa1);
+			paseoMesas.add(mesa2);
+					
 			Zona salon = new Zona("Salon", salonMesas);
-			Zona terraza = new Zona("Terraza", salonMesas);
-			Zona paseo = new Zona("Paseo", salonMesas);
+			Zona terraza = new Zona("Terraza", terrazaMesas);
+			Zona paseo = new Zona("Paseo", paseoMesas);
 
 			ArrayList<Zona> zonas = new ArrayList<Zona>();
 			zonas.add(salon);
