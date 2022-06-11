@@ -195,7 +195,14 @@ public class Ventana extends JFrame {
 	public void cambiarAPantalla(String nombrePantalla, Zona z, Mesa m) {
 		this.pantallaActual.setVisible(false);
 		this.pantallaActual = null;
-		this.pantallaActual = new GestionMesa(this, z, m);
+		switch(nombrePantalla) {
+		case "GestionMesa":
+			this.pantallaActual = new GestionMesa(this, z, m);
+			break;
+		case "AnadirProducto":
+			this.pantallaActual = new AnadirProducto(this, z, m);
+			break;
+		}
 		this.pantallaActual.setVisible(true);
 		this.setContentPane(pantallaActual);
 	}

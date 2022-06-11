@@ -103,6 +103,7 @@ public class GestionMesa extends JPanel {
 		btnAnadir.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla("AnadirProducto", zona, mesa);
+				System.out.println("He estado aqui");
 			}
 		});
 	}

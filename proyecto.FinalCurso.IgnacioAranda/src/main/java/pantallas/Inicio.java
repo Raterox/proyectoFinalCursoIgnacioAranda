@@ -62,7 +62,7 @@ public class Inicio extends JPanel {
 		this.ventana = v;
 		zonaSeleccionada = ventana.restaurante.getZonas().get(0);
 		mesaSeleccionada = zonaSeleccionada.getMesas().get(0);
-		mesas = new ArrayList<Mesa>();
+		mesas = zonaSeleccionada.getMesas();
 		zonas = new ArrayList<Zona>();
 
 		setBackground(SystemColor.activeCaption);
@@ -156,8 +156,8 @@ public class Inicio extends JPanel {
 		btnImprimirTicket.setBounds(350, 336, 199, 23);
 		add(btnImprimirTicket);
 		
-		final BotonRojo btnAtras = new BotonRojo("Atras");
-		btnAtras.setBounds(599, 410, 69, 23);
+		final BotonRojo btnAtras = new BotonRojo("Cerrar Sesion");
+		btnAtras.setBounds(540, 410, 128, 23);
 		btnAtras.setFont(new Font("Hack Nerd Font", Font.BOLD, 10));
 		btnAtras.setBackground(new Color(255, 0, 0));
 		btnAtras.setForeground(new Color(255, 158, 129));
@@ -165,7 +165,6 @@ public class Inicio extends JPanel {
 		add(btnAtras);
 
 		// Acciones
-		
 		btnAtras.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				ventana.cambiarAPantalla("Login");
@@ -175,18 +174,13 @@ public class Inicio extends JPanel {
 		listaZonas.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting()) {
+				try {
 					zonaSeleccionada = (Zona) listaZonas.getSelectedValue();
-					short numMesas = (short) zonaSeleccionada.getMesas().size();
-					ArrayList<Mesa> mesasDeZonaSeleccionadaCopia = new ArrayList<>(zonaSeleccionada.getMesas());
-					mesas.clear();
-					System.out.println("Zona " + zonaSeleccionada);
-					for (int i = 0; i < numMesas; i++) {
-						mesas.add(mesasDeZonaSeleccionadaCopia.get(i));
-						System.out.println(mesasDeZonaSeleccionadaCopia.get(i));
-					}
+					mesas = zonaSeleccionada.getMesas();
 					listaMesas.repaint();
-					listaMesasScroll.repaint();
+				}catch(java.lang.NullPointerException e1) {
+					JOptionPane.showMessageDialog(ventana,
+							"No hay seleccionada ninguna Zona","Error Seleccion Zona", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -194,22 +188,18 @@ public class Inicio extends JPanel {
 		listaMesas.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting()) {
-					mesaSeleccionada = (Mesa) listaMesas.getSelectedValue();
-					short numLineas = (short) mesaSeleccionada.getCuenta().size();
-					ArrayList<LineaDePedido> lineasDeZonaSeleccionadaCopia = new ArrayList<>(
-							mesaSeleccionada.getCuenta());
-					cuenta.clear();
-					System.out.println("Mesa " + zonaSeleccionada);
-					for (int i = 0; i < numLineas; i++) {
-						cuenta.add(lineasDeZonaSeleccionadaCopia.get(i));
-						System.out.println(lineasDeZonaSeleccionadaCopia.get(i));
-					}
+				try {
+					zonaSeleccionada = (Zona) listaZonas.getSelectedValue();
+					mesas = zonaSeleccionada.getMesas();
+					cuenta = ((Mesa) listaMesas.getSelectedValue()).getCuenta();
 					listaProductos.repaint();
-					listaProductosScroll.repaint();
+				}catch(java.lang.NullPointerException e1) {
+					JOptionPane.showMessageDialog(ventana,
+							"No hay seleccionada ninguna Mesaf","Error Seleccion Mesa", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
+		
 
 		btnImprimirTicket.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
