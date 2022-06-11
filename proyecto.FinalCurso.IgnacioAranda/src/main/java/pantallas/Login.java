@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 
 import clases.Empleado;
 import elementosVisuales.Boton;
-import elementosVisuales.BotonSalir;
+import elementosVisuales.BotonRojo;
 import enums.Puesto;
 import exception.ContrasenaVaciaException;
 import exception.EmpleadoNoExisteException;
@@ -107,15 +107,22 @@ public class Login extends JPanel {
 		gbc_textFieldContrasena.gridy = 5;
 		add(textPassContrasena, gbc_textFieldContrasena);
 		
-		BotonSalir button = new BotonSalir("Salir");
+		BotonRojo botonSalir = new BotonRojo("Salir");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.anchor = GridBagConstraints.SOUTH;
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 15;
 		gbc_button.gridy = 6;
-		add(button, gbc_button);
+		add(botonSalir, gbc_button);
 
 		// Acciones:
+		
+		botonSalir.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
 
 		btnIniciarSesion.addMouseListener(new MouseAdapter() {
 			@Override

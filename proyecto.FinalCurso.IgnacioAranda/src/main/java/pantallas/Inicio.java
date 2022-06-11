@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.ListModel;
 
 import elementosVisuales.Boton;
-import elementosVisuales.BotonSalir;
+import elementosVisuales.BotonRojo;
 
 import java.awt.GridBagLayout;
 import java.awt.Font;
@@ -32,11 +32,15 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 
 import java.awt.Component;
+import java.awt.Cursor;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.ListSelectionListener;
@@ -144,28 +148,29 @@ public class Inicio extends JPanel {
 		listaProductos.setCellRenderer(renderer);
 		panelProductos.add(listaProductosScroll, BorderLayout.CENTER);
 
-		BotonSalir btnBotonSalir = new BotonSalir("Salir");
-		btnBotonSalir.setBounds(599, 410, 69, 23);
-		add(btnBotonSalir);
-
 		Boton btnGestionar = new Boton("Gestionar");
-		btnGestionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ventana.cambiarAPantalla("GestionMesa", zonaSeleccionada, mesaSeleccionada);
-			}
-		});
-		btnGestionar.setBounds(10, 336, 89, 23);
+		btnGestionar.setBounds(69, 336, 199, 23);
 		add(btnGestionar);
 
 		Boton btnImprimirTicket = new Boton("Imprimir Ticket");
-		btnImprimirTicket.setBounds(120, 336, 199, 23);
+		btnImprimirTicket.setBounds(350, 336, 199, 23);
 		add(btnImprimirTicket);
-
-		Boton btnEliminar = new Boton("Eliminar");
-		btnEliminar.setBounds(340, 336, 89, 23);
-		add(btnEliminar);
+		
+		final BotonRojo btnAtras = new BotonRojo("Atras");
+		btnAtras.setBounds(599, 410, 69, 23);
+		btnAtras.setFont(new Font("Hack Nerd Font", Font.BOLD, 10));
+		btnAtras.setBackground(new Color(255, 0, 0));
+		btnAtras.setForeground(new Color(255, 158, 129));
+		btnAtras.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		add(btnAtras);
 
 		// Acciones
+		
+		btnAtras.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla("Login");
+			}
+		});
 
 		listaZonas.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -206,17 +211,23 @@ public class Inicio extends JPanel {
 			}
 		});
 
-		btnImprimirTicket.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnImprimirTicket.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				try {
-					mesaSeleccionada.imprimirTodosCuenta();
+					zonaSeleccionada.imprimirTodosCuenta(mesaSeleccionada);
 					JOptionPane.showMessageDialog(ventana,
-							"Ya se ha impreso la cuenta de la mesa " + mesaSeleccionada.getNumero(),
+							"Impresion de la mesa " + mesaSeleccionada.getNumero() + " finalizada",
 							"Impresion Finalizada", JOptionPane.PLAIN_MESSAGE);
-				} catch (IOException e) {
+				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
+			}
+		});
+		
+		btnGestionar.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				ventana.cambiarAPantalla("GestionMesa", zonaSeleccionada, mesaSeleccionada);
 			}
 		});
 	}

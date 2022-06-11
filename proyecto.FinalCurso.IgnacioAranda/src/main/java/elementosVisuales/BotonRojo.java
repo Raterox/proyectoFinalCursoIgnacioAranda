@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-public class BotonSalir extends JButton{
-	public BotonSalir(String msg) {
+public class BotonRojo extends JButton{
+	public BotonRojo(String msg) {
 		super(msg);
 		estiloPorDefecto();
 		this.addMouseListener(new MouseAdapter() {
@@ -25,10 +25,6 @@ public class BotonSalir extends JButton{
 				setForeground(new Color(255, 158, 129));
 			}
 			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
 		});
 
 	}

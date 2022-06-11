@@ -1,5 +1,8 @@
 package clases;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import exception.NombreVacioException;
@@ -18,6 +21,25 @@ public class Zona extends EntidadConNombre{
 
 	public void setMesas(ArrayList<Mesa> mesas) {
 		this.mesas = mesas;
+	}
+	
+	public void imprimirTodosCuenta(Mesa m) throws IOException {
+		ArrayList<LineaDePedido> cuenta = m.getCuenta();
+		byte numero = m.getNumero();
+		short total = 0;
+		File carpeta = new File("./documentosRestaurante");
+		if(!carpeta.exists()) {
+			carpeta.mkdir();
+		}
+		FileWriter txt = new FileWriter("./documentosRestaurante/Zona" + super.getNombre() + "Mesa" + numero + ".txt");
+		txt.write("Zona " + super.getNombre() + " || Mesa: " + numero + "\n\n");
+		for(short i = 0; i<cuenta.size(); i++) {
+			txt.write(cuenta.get(i).toString() + " || Total: " + cuenta.get(i).getCantidad() * cuenta.get(i).getProducto().getPrecio() + " euros\n");
+			total +=cuenta.get(i).getCantidad() * cuenta.get(i).getProducto().getPrecio();
+		}
+		txt.write("\nTotal Cuenta: " + total + " euros"); 
+		txt.flush();
+		txt.close();
 	}
 
 	@Override
