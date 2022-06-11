@@ -1,0 +1,8 @@
+Zona Salon || Mesa: 1
+
+Filete con Patatas || Precio: 15.4 euros. || Cantidad: 4 || Total: 61.6 euros
+Sex in The Beach || Precio: 6.2 euros. || Cantidad: 2 || Total: 12.4 euros
+Chorizo Segoviano || Precio: 15.4 euros. || Cantidad: 3 || Total: 46.199997 euros
+Tarta de Queso || Precio: 15.4 euros. || Cantidad: 2 || Total: 30.8 euros
+
+Total Cuenta: 149 euros

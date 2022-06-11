@@ -56,11 +56,11 @@ public class GestionMesa extends JPanel {
 		add(lblMesa, BorderLayout.NORTH);
 		lblMesa.setFont(new Font("Hack Nerd Font", Font.BOLD, 30));
 
-		Boton btnEliminar = new Boton("Eliminar");
+		final Boton btnEliminar = new Boton("Eliminar");
 		add(btnEliminar, BorderLayout.WEST);
 		btnEliminar.setPreferredSize(new Dimension(100, 100));
 
-		Boton btnAnadir = new Boton("Anadir");
+		final Boton btnAnadir = new Boton("Anadir");
 		add(btnAnadir, BorderLayout.EAST);
 		btnAnadir.setPreferredSize(new Dimension(100, 100));
 

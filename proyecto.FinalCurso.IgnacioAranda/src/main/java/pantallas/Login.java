@@ -79,7 +79,7 @@ public class Login extends JPanel {
 		add(textFieldUsuario, gbc_textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 
-		Boton btnIniciarSesion = new Boton("Iniciar Sesion");
+		final Boton btnIniciarSesion = new Boton("Iniciar Sesion");
 
 		GridBagConstraints gbc_btnIniciarSesion = new GridBagConstraints();
 		gbc_btnIniciarSesion.gridwidth = 3;
@@ -133,6 +133,7 @@ public class Login extends JPanel {
 					Empleado empleadoComprobar = new Empleado(usuario, contrasena);
 
 					ventana.empleadoLogado = empleadoComprobar.existeEmpleado(ventana.restaurante.getEmpleados());
+					btnIniciarSesion.playSound("Inicio.wav");
 					JOptionPane.showMessageDialog(ventana, "Bienvenid@, " + ventana.empleadoLogado.getNombre(),
 							"Login Correcto", JOptionPane.PLAIN_MESSAGE);
 					if (ventana.empleadoLogado.getPuesto().equals(Puesto.ADMINISTRADOR)) {
@@ -142,10 +143,12 @@ public class Login extends JPanel {
 					}
 
 				} catch (NombreVacioException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(ventana, "El usuario no puede estar vacio",
+							"Login Incorrecto", JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				} catch (ContrasenaVaciaException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(ventana, "La contrasena no puede estar vacia",
+							"Login Incorrecto", JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				} catch (HeadlessException e1) {
 					// TODO Auto-generated catch block
@@ -156,6 +159,7 @@ public class Login extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
+				
 			}
 		});
 	}

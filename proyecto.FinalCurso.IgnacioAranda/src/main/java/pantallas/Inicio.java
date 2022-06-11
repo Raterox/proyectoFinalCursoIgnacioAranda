@@ -148,11 +148,11 @@ public class Inicio extends JPanel {
 		listaProductos.setCellRenderer(renderer);
 		panelProductos.add(listaProductosScroll, BorderLayout.CENTER);
 
-		Boton btnGestionar = new Boton("Gestionar");
+		final Boton btnGestionar = new Boton("Gestionar");
 		btnGestionar.setBounds(69, 336, 199, 23);
 		add(btnGestionar);
 
-		Boton btnImprimirTicket = new Boton("Imprimir Ticket");
+		final Boton btnImprimirTicket = new Boton("Imprimir Ticket");
 		btnImprimirTicket.setBounds(350, 336, 199, 23);
 		add(btnImprimirTicket);
 		
@@ -212,7 +212,7 @@ public class Inicio extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			}
+			}	
 		});
 		
 		btnGestionar.addMouseListener(new MouseAdapter() {

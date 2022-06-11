@@ -89,7 +89,7 @@ public class AnadirProducto extends JPanel{
 		gbc_comboBoxTipo.gridy = 3;
 		add(comboBoxTipo, gbc_comboBoxTipo);
 		
-		Boton btnAceptar = new Boton("Aceptar");
+		final Boton btnAceptar = new Boton("Aceptar");
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAceptar.gridx = 8;
@@ -140,7 +140,7 @@ public class AnadirProducto extends JPanel{
 		add(textFieldCantidad, gbc_textFieldCantidad);
 		textFieldCantidad.setColumns(10);
 		
-		Boton btnAnadir = new Boton("Anadir");
+		final Boton btnAnadir = new Boton("Anadir");
 		GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 		gbc_btnAnadir.gridwidth = 2;
 		gbc_btnAnadir.insets = new Insets(0, 0, 5, 5);
@@ -148,7 +148,7 @@ public class AnadirProducto extends JPanel{
 		gbc_btnAnadir.gridy = 10;
 		add(btnAnadir, gbc_btnAnadir);
 		
-		BotonRojo btnAtras = new BotonRojo("Atras");
+		final BotonRojo btnAtras = new BotonRojo("Atras");
 		GridBagConstraints gbc_btnAtras = new GridBagConstraints();
 		gbc_btnAtras.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAtras.gridx = 11;
@@ -195,7 +195,6 @@ public class AnadirProducto extends JPanel{
 				}catch(java.lang.NumberFormatException e2) {
 					JOptionPane.showMessageDialog(ventana, "La cantidad es 0 o demasiado grande", "ERROR en Cantidad", JOptionPane.ERROR_MESSAGE);
 				}
-				
 			}
 		});
 	}
