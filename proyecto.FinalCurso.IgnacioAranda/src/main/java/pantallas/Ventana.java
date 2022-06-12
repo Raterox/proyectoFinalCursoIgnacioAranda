@@ -142,14 +142,11 @@ public class Ventana extends JFrame {
 
 			ArrayList<Mesa> salonMesas = new ArrayList<Mesa>();
 			salonMesas.add(mesa1);
-			salonMesas.add(mesa2);
-			salonMesas.add(mesa3);
 			ArrayList<Mesa> terrazaMesas = new ArrayList<Mesa>();
-			terrazaMesas.add(mesa1);
+			terrazaMesas.add(mesa2);
 			
 			ArrayList<Mesa> paseoMesas = new ArrayList<Mesa>();
-			paseoMesas.add(mesa1);
-			paseoMesas.add(mesa2);
+			paseoMesas.add(mesa3);
 					
 			Zona salon = new Zona("Salon", salonMesas);
 			Zona terraza = new Zona("Terraza", terrazaMesas);
@@ -211,9 +208,9 @@ public class Ventana extends JFrame {
 		case "GestionaProducto":
 			this.pantallaActual = new GestionaProducto(this);
 			break;
-//		case "GestionaAlergeno":
-//			this.pantallaActual = new GestionaAlergeno(this);
-//			break;
+		case "GestionaAlergeno":
+			this.pantallaActual = new GestionaAlergeno(this);
+			break;
 		case "GestionaEmpleado":
 			this.pantallaActual = new GestionaEmpleado(this);
 			break;

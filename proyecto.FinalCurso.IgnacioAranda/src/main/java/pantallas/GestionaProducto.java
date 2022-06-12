@@ -10,8 +10,10 @@ import clases.Alergeno;
 import clases.Producto;
 import elementosVisuales.Boton;
 import elementosVisuales.BotonRojo;
+import exception.AlergenoDuplicadoException;
 import exception.NombreVacioException;
 import exception.PrecioCeroException;
+import exception.ProductoDuplicadoException;
 import exception.PuestoVacioException;
 
 import javax.swing.JList;
@@ -186,8 +188,13 @@ public class GestionaProducto extends JPanel {
 					alergenos.add((Alergeno) comboBoxAlergeno.getSelectedItem());
 					Producto productoNuevo;
 					ArrayList<Producto> productosNuevos = ventana.restaurante.getCarta().getProductos();
+					for(int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
+						if(ventana.restaurante.getCarta().getProductos().get(i).getNombre().equals(nombre)) {
+							throw new ProductoDuplicadoException("Producto ya existe");
+						}
+					}
 					productoNuevo = new Producto(nombre, precio, alergenos, tipo, alcoholica);
-					productosNuevos.add(productoNuevo);
+					productosNuevos.add(productoNuevo);					
 					ventana.restaurante.getCarta().setProductos(productosNuevos);
 					listProductos.repaint();
 					JOptionPane.showMessageDialog(ventana,
@@ -203,8 +210,12 @@ public class GestionaProducto extends JPanel {
 					e1.printStackTrace();
 				} catch (PuestoVacioException e1) {
 					e1.printStackTrace();
-				} catch(java.lang.NumberFormatException e1) {
+				} catch (java.lang.NumberFormatException e1) {
 					JOptionPane.showMessageDialog(ventana, "Campo Precio Vacio", "Error al Anadir",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (ProductoDuplicadoException e1) {
+					JOptionPane.showMessageDialog(ventana, "El producto ya existe", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
@@ -221,19 +232,24 @@ public class GestionaProducto extends JPanel {
 					Alcoholica alcoholica = (Alcoholica) comboBoxAlcoholico.getSelectedItem();
 					ArrayList<Alergeno> alergenos = new ArrayList<Alergeno>();
 					alergenos.add((Alergeno) comboBoxAlergeno.getSelectedItem());
-					Producto productoNuevo;
-					ArrayList<Producto> productosNuevos = ventana.restaurante.getCarta().getProductos();
 
 					Producto productoSeleccionada = (Producto) listProductos.getSelectedValue();
+					
+					for(int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
+						if(ventana.restaurante.getCarta().getProductos().get(i).getNombre().equals(nombre)) {
+							throw new ProductoDuplicadoException("Producto ya existe");
+						}
+					}
 					for (int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
-						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre()== productoSeleccionada.getNombre()) {
+
+						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre().equals(productoSeleccionada
+								.getNombre())) {
 							ventana.restaurante.getCarta().getProductos().get(i).setNombre(nombre);
 							ventana.restaurante.getCarta().getProductos().get(i).setPrecio(precio);
 							ventana.restaurante.getCarta().getProductos().get(i).setAlergenos(alergenos);
 							ventana.restaurante.getCarta().getProductos().get(i).setTipoProducto(tipo);
 							ventana.restaurante.getCarta().getProductos().get(i).setAlcoholica(alcoholica);
-							ventana.restaurante.getCarta().setProductos(productosNuevos);
-							JOptionPane.showMessageDialog(ventana, "Producto Anadido", "Producto Actualizada",
+							JOptionPane.showMessageDialog(ventana, "Producto Actualizado", "Producto Actualizado",
 									JOptionPane.PLAIN_MESSAGE);
 						}
 					}
@@ -252,8 +268,12 @@ public class GestionaProducto extends JPanel {
 				} catch (PuestoVacioException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch(java.lang.NumberFormatException e1) {
+				} catch (java.lang.NumberFormatException e1) {
 					JOptionPane.showMessageDialog(ventana, "Campo Precio Vacio", "Error al Anadir",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (ProductoDuplicadoException e1) {
+					JOptionPane.showMessageDialog(ventana, "El producto ya existe", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
@@ -267,8 +287,16 @@ public class GestionaProducto extends JPanel {
 				try {
 					String nombre = textFieldNombre.getText();
 					Producto productoSeleccionada = (Producto) listProductos.getSelectedValue();
+					
+					for(int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
+						if(ventana.restaurante.getCarta().getProductos().get(i).getNombre().equals(nombre)) {
+							throw new ProductoDuplicadoException("Producto ya existe");
+						}
+					}
+					
 					for (int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
-						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre() == productoSeleccionada.getNombre()) {
+						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre() == productoSeleccionada
+								.getNombre()) {
 							ventana.restaurante.getCarta().getProductos().get(i).setNombre(nombre);
 							JOptionPane.showMessageDialog(ventana, "Nombre Cambiado", "Producto Actualizada",
 									JOptionPane.PLAIN_MESSAGE);
@@ -280,6 +308,10 @@ public class GestionaProducto extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NombreVacioException e1) {
 					JOptionPane.showMessageDialog(ventana, "Campo Nombre Vacio", "Error al Anadir",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (ProductoDuplicadoException e1) {
+					JOptionPane.showMessageDialog(ventana, "El producto ya existe", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}

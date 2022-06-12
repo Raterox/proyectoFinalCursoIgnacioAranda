@@ -111,8 +111,8 @@ public class Empleado extends EntidadConNombre {
 
 	@Override
 	public String toString() {
-		return "Empleado:\n\t" + super.toString() + "\n\tApellido: " + getApellido() + "\n\tSueldo: " + getSueldo()
-				+ "\n\tPuesto: " + getPuesto() + "\n";
+		return super.getNombre() +" "+ getApellido() + "||Sueldo: " + getSueldo()
+				+ "||Puesto: " + getPuesto();
 	}
 
 }

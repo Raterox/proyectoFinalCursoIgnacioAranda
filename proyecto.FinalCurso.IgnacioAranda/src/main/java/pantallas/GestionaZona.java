@@ -11,6 +11,7 @@ import clases.Zona;
 import elementosVisuales.Boton;
 import elementosVisuales.BotonRojo;
 import exception.NombreVacioException;
+import exception.ProductoDuplicadoException;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -139,12 +140,20 @@ public class GestionaZona extends JPanel{
 				Zona zonaNueva;
 				ArrayList<Zona> zonasNuevas = ventana.restaurante.getZonas();
 				try {
+					for(int i = 0; i < ventana.restaurante.getZonas().size(); i++) {
+						if(ventana.restaurante.getZonas().get(i).getNombre().equals(nombre)) {
+							throw new ProductoDuplicadoException("Producto ya existe");
+						}
+					}
 					zonaNueva = new Zona(nombre, mesas);
 					zonasNuevas.add(zonaNueva);
 					ventana.restaurante.setZonas(zonasNuevas);
 					listZonas.repaint();
 				} catch (NombreVacioException e1) {
-					JOptionPane.showMessageDialog(ventana, "Campo Nombre Vacio", "Error al Actualizada", JOptionPane.ERROR_MESSAGE );
+					JOptionPane.showMessageDialog(ventana, "Campo Nombre Vacio", "Error al Anadir", JOptionPane.ERROR_MESSAGE );
+					e1.printStackTrace();
+				} catch (ProductoDuplicadoException e1) {
+					JOptionPane.showMessageDialog(ventana, "La zona ya existe", "Error al Anadir", JOptionPane.ERROR_MESSAGE );
 					e1.printStackTrace();
 				}
 			}
@@ -156,6 +165,7 @@ public class GestionaZona extends JPanel{
 				try {
 					Zona zonaSeleccionada = (Zona) listZonas.getSelectedValue();
 					Mesa mesaNueva = (Mesa) comboBoxMesa.getSelectedItem();
+					
 					for(int i = 0; i<ventana.restaurante.getZonas().size(); i++) {
 						if(ventana.restaurante.getZonas().get(i).getNombre() == zonaSeleccionada.getNombre()) {
 							ArrayList<Mesa> mesasNuevas = ventana.restaurante.getZonas().get(i).getMesas();

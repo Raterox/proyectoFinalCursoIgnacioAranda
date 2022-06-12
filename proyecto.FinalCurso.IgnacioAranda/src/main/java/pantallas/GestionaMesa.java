@@ -10,7 +10,9 @@ import clases.Mesa;
 import clases.Zona;
 import elementosVisuales.Boton;
 import elementosVisuales.BotonRojo;
+import exception.MesaDuplicadoException;
 import exception.NombreVacioException;
+import exception.ProductoDuplicadoException;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -125,12 +127,21 @@ public class GestionaMesa extends JPanel {
 				Mesa mesaNueva;
 				ArrayList<Mesa> mesasNuevas = ventana.getTodasMesas();
 				try {
+					for(int i = 0; i < ventana.getTodasMesas().size(); i++) {
+						if(ventana.getTodasMesas().get(i).getNumero() == (numero)) {
+							throw new MesaDuplicadoException("Mesa ya existe");
+						}
+					}
 					mesaNueva = new Mesa(numero);
 					mesasNuevas.add(mesaNueva);
 					ventana.setTodasMesas(mesasNuevas);
 					listMesas.repaint();
 				} catch (java.lang.NumberFormatException e1) {
-					JOptionPane.showMessageDialog(ventana, "El formato del Numero no es correcto", "Error al Actualizada",
+					JOptionPane.showMessageDialog(ventana, "El formato del Numero no es correcto", "Error al Anadir",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (MesaDuplicadoException e1) {
+					JOptionPane.showMessageDialog(ventana, "La mesa ya existe", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
@@ -145,6 +156,13 @@ public class GestionaMesa extends JPanel {
 					Mesa mesaSeleccionada = (Mesa) listMesas.getSelectedValue();
 					try {
 						byte numeroNuevo = (byte) Integer.parseInt(textFieldNombre.getText());
+						
+						for(int i = 0; i < ventana.getTodasMesas().size(); i++) {
+							if(ventana.getTodasMesas().get(i).getNumero() == (numeroNuevo)) {
+								throw new MesaDuplicadoException("Mesa ya existe");
+							}
+						}
+						
 						for (int i = 0; i < ventana.getTodasMesas().size(); i++) {
 							if (ventana.getTodasMesas().get(i).getNumero() == mesaSeleccionada.getNumero()) {
 								ventana.getTodasMesas().get(i).setNumero(numeroNuevo);
@@ -155,6 +173,10 @@ public class GestionaMesa extends JPanel {
 					}catch(java.lang.NumberFormatException e1) {
 						JOptionPane.showMessageDialog(ventana, "El formato del Numero no es correcto", "Error al Actualizar",
 								JOptionPane.ERROR_MESSAGE);
+					} catch (MesaDuplicadoException e1) {
+						JOptionPane.showMessageDialog(ventana, "La mesa ya existe", "Error al Actualizar",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
 					}
 					listMesas.repaint();
 				} catch (java.lang.NullPointerException e1) {
