@@ -203,11 +203,16 @@ public class Inicio extends JPanel {
 
 		btnImprimirTicket.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				float dineroTotal = ventana.restaurante.getIngresosTotales();
 				try {
 					zonaSeleccionada.imprimirTodosCuenta(mesaSeleccionada);
 					JOptionPane.showMessageDialog(ventana,
 							"Impresion de la mesa " + mesaSeleccionada.getNumero() + " finalizada",
 							"Impresion Finalizada", JOptionPane.PLAIN_MESSAGE);
+					for(int i = 0; i<mesaSeleccionada.getCuenta().size(); i++) {
+						dineroTotal +=mesaSeleccionada.getCuenta().get(i).getProducto().getPrecio() * mesaSeleccionada.getCuenta().get(i).getCantidad();
+					}
+					ventana.restaurante.setIngresosTotales(dineroTotal);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

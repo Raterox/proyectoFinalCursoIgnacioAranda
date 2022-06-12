@@ -47,7 +47,7 @@ public class Mesa {
 			txt.write(cuenta.get(i).toString() + " || Total: " + cuenta.get(i).getCantidad() * cuenta.get(i).getProducto().getPrecio() + " euros\n");
 			total +=cuenta.get(i).getCantidad() * cuenta.get(i).getProducto().getPrecio();
 		}
-		txt.write("\nTotal Cuenta: " + total + " euros"); 
+		txt.write("\nTotal Cuenta: " + total + " euros");
 		txt.flush();
 		txt.close();
 	}

@@ -5,12 +5,7 @@ import java.sql.SQLException;
 import exception.NombreVacioException;
 import exception.SimboloVacioException;
 
-/**
- * 
- * @author ignac
- * Esta clase, definira los 
- *
- */
+
 public class Alergeno extends EntidadConNombre{
 	private char simbolo;
 	public Alergeno(String nombre, char simbolo) throws SQLException, NombreVacioException, SimboloVacioException {
