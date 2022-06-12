@@ -35,6 +35,7 @@ public class Ventana extends JFrame {
 	protected Restaurante restaurante;
 	protected Empleado empleadoLogado;
 	private ArrayList<Mesa> todasMesas;
+	private ArrayList<Alergeno> todosAlergenos;
 
 	public Ventana(String direccionLogo) {
 
@@ -70,10 +71,16 @@ public class Ventana extends JFrame {
 			empleados.add(ariadna);
 			empleados.add(placido);
 
+			todosAlergenos = new ArrayList<Alergeno>();
+			
 			Alergeno lecheYDerivados = new Alergeno("Leche y Derivados", 'l');
+			todosAlergenos.add(lecheYDerivados);
 			Alergeno huevos = new Alergeno("Huevos", 'h');
+			todosAlergenos.add(huevos);
 			Alergeno frutosSecos = new Alergeno("Frutos Secos", 'f');
+			todosAlergenos.add(frutosSecos);
 			Alergeno soja = new Alergeno("Soja", 's');
+			todosAlergenos.add(soja);
 
 			ArrayList<Alergeno> lecheYHuevos = new ArrayList<Alergeno>();
 			lecheYHuevos.add(lecheYDerivados);
@@ -207,9 +214,9 @@ public class Ventana extends JFrame {
 //		case "GestionaAlergeno":
 //			this.pantallaActual = new GestionaAlergeno(this);
 //			break;
-//		case "GestionaEmpleado":
-//			this.pantallaActual = new GestionaEmpleado(this);
-//			break;
+		case "GestionaEmpleado":
+			this.pantallaActual = new GestionaEmpleado(this);
+			break;
 		}
 		this.pantallaActual.setVisible(true);
 		this.setContentPane(pantallaActual);
@@ -220,6 +227,14 @@ public class Ventana extends JFrame {
 	
 	public ArrayList<Mesa> getTodasMesas(){
 		return this.todasMesas;
+	}
+	
+	public void setTodosAlergenos(ArrayList<Alergeno> alergenos) {
+		this.todosAlergenos = alergenos;
+	}
+	
+	public ArrayList<Alergeno> getTodosAlergenos(){
+		return this.todosAlergenos;
 	}
 	
 	public void cambiarAPantalla(String nombrePantalla, Zona z, Mesa m) {

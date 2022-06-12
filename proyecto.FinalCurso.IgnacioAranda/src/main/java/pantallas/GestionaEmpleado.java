@@ -2,39 +2,42 @@ package pantallas;
 
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import clases.Alergeno;
+import clases.Empleado;
 import clases.Producto;
 import elementosVisuales.Boton;
 import elementosVisuales.BotonRojo;
-import exception.NombreVacioException;
-import exception.PrecioCeroException;
-import exception.PuestoVacioException;
-
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JScrollPane;
-import enums.TipoProducto;
 import enums.Alcoholica;
+import enums.TipoProducto;
+import exception.NombreVacioException;
+import exception.PuestoVacioException;
+import exception.SueldoVacioException;
+import enums.Puesto;
 
-public class GestionaProducto extends JPanel {
+public class GestionaEmpleado extends JPanel {
 	private Ventana ventana;
 	private JTextField textFieldNombre;
-	private JTextField textFieldPrecio;
+	private JTextField textFieldContrasena;
+	private JTextField textField;
+	private JTextField textField_1;
 
-	public GestionaProducto(Ventana v) {
+	public GestionaEmpleado(Ventana v) {
 		this.ventana = v;
 
 		setBackground(SystemColor.activeCaption);
@@ -55,31 +58,25 @@ public class GestionaProducto extends JPanel {
 		lblNombre.setBounds(27, 84, 165, 14);
 		add(lblNombre);
 
-		JLabel lblAlergeno = new JLabel("Alergeno");
-		lblAlergeno.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
-		lblAlergeno.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlergeno.setBounds(27, 140, 165, 14);
-		add(lblAlergeno);
+		JLabel lblSueldo = new JLabel("Sueldo");
+		lblSueldo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSueldo.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
+		lblSueldo.setBounds(27, 198, 165, 14);
+		add(lblSueldo);
 
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTipo.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
-		lblTipo.setBounds(27, 198, 165, 14);
-		add(lblTipo);
+		JLabel lblPuesto = new JLabel("Puesto");
+		lblPuesto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPuesto.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
+		lblPuesto.setBounds(27, 256, 165, 14);
+		add(lblPuesto);
 
-		JLabel lblAlcoholico = new JLabel("Alcoholico");
-		lblAlcoholico.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlcoholico.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
-		lblAlcoholico.setBounds(27, 256, 165, 14);
-		add(lblAlcoholico);
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblApellido.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
+		lblApellido.setBounds(27, 140, 165, 14);
+		add(lblApellido);
 
-		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPrecio.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
-		lblPrecio.setBounds(27, 314, 165, 14);
-		add(lblPrecio);
-
-		Boton btnEliminar = new Boton("Eliminar");
+		Boton btnEliminar = new Boton("Despedir");
 		btnEliminar.setBounds(443, 366, 220, 23);
 		add(btnEliminar);
 
@@ -87,17 +84,13 @@ public class GestionaProducto extends JPanel {
 		btnAtras.setBounds(574, 401, 89, 23);
 		add(btnAtras);
 
-		Boton btnAnadir = new Boton("Anadir");
-		btnAnadir.setBounds(224, 223, 134, 23);
+		Boton btnAnadir = new Boton("Contratar");
+		btnAnadir.setBounds(224, 195, 134, 23);
 		add(btnAnadir);
 
 		Boton btnActualizar = new Boton("Actualizar");
-		btnActualizar.setBounds(224, 281, 134, 23);
+		btnActualizar.setBounds(224, 253, 134, 23);
 		add(btnActualizar);
-
-		Boton btnCambiarNombre = new Boton("Cambiar Nombre");
-		btnCambiarNombre.setBounds(224, 165, 134, 23);
-		add(btnCambiarNombre);
 
 		textFieldNombre = new JTextField();
 		textFieldNombre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,44 +98,52 @@ public class GestionaProducto extends JPanel {
 		add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 
-		textFieldPrecio = new JTextField();
-		textFieldPrecio.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldPrecio.setColumns(10);
-		textFieldPrecio.setBounds(27, 339, 165, 20);
-		add(textFieldPrecio);
+		textFieldContrasena = new JTextField();
+		textFieldContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldContrasena.setColumns(10);
+		textFieldContrasena.setBounds(27, 165, 165, 20);
+		add(textFieldContrasena);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(443, 84, 220, 271);
 		add(scrollPane);
 
-		final JList listProductos = new JList();
-		final ArrayList<Producto> productos = ventana.restaurante.getCarta().getProductos();
-		listProductos.setModel(new AbstractListModel() {
+		final JList listEmpleados = new JList();
+		final ArrayList<Empleado> empleados = ventana.restaurante.getEmpleados();
+		listEmpleados.setModel(new AbstractListModel() {
 			public int getSize() {
-				return productos.size();
+				return empleados.size();
 			}
 
 			public Object getElementAt(int index) {
-				return productos.get(index);
+				return empleados.get(index);
 			}
 		});
-		listProductos.setBounds(433, 70, 230, 285);
-		scrollPane.setViewportView(listProductos);
+		listEmpleados.setBounds(433, 70, 230, 285);
+		scrollPane.setViewportView(listEmpleados);
 
-		final JComboBox comboBoxAlergeno = new JComboBox();
-		comboBoxAlergeno.setModel(new DefaultComboBoxModel(ventana.getTodosAlergenos().toArray()));
-		comboBoxAlergeno.setBounds(27, 165, 165, 22);
-		add(comboBoxAlergeno);
-
-		final JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setModel(new DefaultComboBoxModel(TipoProducto.values()));
-		comboBoxTipo.setBounds(27, 223, 165, 22);
-		add(comboBoxTipo);
-
-		final JComboBox comboBoxAlcoholico = new JComboBox();
-		comboBoxAlcoholico.setModel(new DefaultComboBoxModel(Alcoholica.values()));
-		comboBoxAlcoholico.setBounds(27, 281, 165, 22);
-		add(comboBoxAlcoholico);
+		final JComboBox comboBoxPuesto = new JComboBox();
+		comboBoxPuesto.setModel(new DefaultComboBoxModel(Puesto.values()));
+		comboBoxPuesto.setBounds(27, 281, 165, 22);
+		add(comboBoxPuesto);
+		
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setColumns(10);
+		textField.setBounds(27, 339, 165, 20);
+		add(textField);
+		
+		JLabel lblContrasena = new JLabel("Contrasena");
+		lblContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+		lblContrasena.setFont(new Font("Hack Nerd Font", Font.ITALIC, 15));
+		lblContrasena.setBounds(27, 314, 165, 14);
+		add(lblContrasena);
+		
+		textField_1 = new JTextField();
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_1.setColumns(10);
+		textField_1.setBounds(27, 225, 165, 20);
+		add(textField_1);
 
 		// Acciones
 
@@ -179,8 +180,8 @@ public class GestionaProducto extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					String nombre = textFieldNombre.getText();
-					float precio = (float) Integer.parseInt(textFieldPrecio.getText());
-					TipoProducto tipo = (TipoProducto) comboBoxTipo.getSelectedItem();
+					float precio = (float) Integer.parseInt(textFieldContrasena.getText());
+					TipoProducto tipo = (TipoProducto) comboBoxPuesto.getSelectedItem();
 					Alcoholica alcoholica = (Alcoholica) comboBoxAlcoholico.getSelectedItem();
 					ArrayList<Alergeno> alergenos = new ArrayList<Alergeno>();
 					alergenos.add((Alergeno) comboBoxAlergeno.getSelectedItem());
@@ -197,14 +198,14 @@ public class GestionaProducto extends JPanel {
 					JOptionPane.showMessageDialog(ventana, "Campo Nombre Vacio", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
-				} catch (PrecioCeroException e1) {
-					JOptionPane.showMessageDialog(ventana, "Campo Precio Cero", "Error al Anadir",
+				} catch (SueldoVacioException e1) {
+					JOptionPane.showMessageDialog(ventana, "Campo Sueldo Cero", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				} catch (PuestoVacioException e1) {
 					e1.printStackTrace();
-				} catch(java.lang.NumberFormatException e1) {
-					JOptionPane.showMessageDialog(ventana, "Campo Precio Vacio", "Error al Anadir",
+				} catch (java.lang.NumberFormatException e1) {
+					JOptionPane.showMessageDialog(ventana, "Campo Sueldo Vacio", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
@@ -216,8 +217,8 @@ public class GestionaProducto extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					String nombre = textFieldNombre.getText();
-					float precio = (float) Integer.parseInt(textFieldPrecio.getText());
-					TipoProducto tipo = (TipoProducto) comboBoxTipo.getSelectedItem();
+					float precio = (float) Integer.parseInt(textFieldContrasena.getText());
+					TipoProducto tipo = (TipoProducto) comboBoxPuesto.getSelectedItem();
 					Alcoholica alcoholica = (Alcoholica) comboBoxAlcoholico.getSelectedItem();
 					ArrayList<Alergeno> alergenos = new ArrayList<Alergeno>();
 					alergenos.add((Alergeno) comboBoxAlergeno.getSelectedItem());
@@ -226,9 +227,10 @@ public class GestionaProducto extends JPanel {
 
 					Producto productoSeleccionada = (Producto) listProductos.getSelectedValue();
 					for (int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
-						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre()== productoSeleccionada.getNombre()) {
+						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre() == productoSeleccionada
+								.getNombre()) {
 							ventana.restaurante.getCarta().getProductos().get(i).setNombre(nombre);
-							ventana.restaurante.getCarta().getProductos().get(i).setPrecio(precio);
+							ventana.restaurante.getCarta().getProductos().get(i).setSueldo(precio);
 							ventana.restaurante.getCarta().getProductos().get(i).setAlergenos(alergenos);
 							ventana.restaurante.getCarta().getProductos().get(i).setTipoProducto(tipo);
 							ventana.restaurante.getCarta().getProductos().get(i).setAlcoholica(alcoholica);
@@ -245,44 +247,19 @@ public class GestionaProducto extends JPanel {
 					JOptionPane.showMessageDialog(ventana, "Campo Nombre Vacio", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
-				} catch (PrecioCeroException e1) {
-					JOptionPane.showMessageDialog(ventana, "Campo Precio Cero", "Error al Anadir",
+				} catch (SueldoCeroException e1) {
+					JOptionPane.showMessageDialog(ventana, "Campo Sueldo Cero", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				} catch (PuestoVacioException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch(java.lang.NumberFormatException e1) {
-					JOptionPane.showMessageDialog(ventana, "Campo Precio Vacio", "Error al Anadir",
+				} catch (java.lang.NumberFormatException e1) {
+					JOptionPane.showMessageDialog(ventana, "Campo Sueldo Vacio", "Error al Anadir",
 							JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
 
-			}
-		});
-
-		btnCambiarNombre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					String nombre = textFieldNombre.getText();
-					Producto productoSeleccionada = (Producto) listProductos.getSelectedValue();
-					for (int i = 0; i < ventana.restaurante.getCarta().getProductos().size(); i++) {
-						if (ventana.restaurante.getCarta().getProductos().get(i).getNombre() == productoSeleccionada.getNombre()) {
-							ventana.restaurante.getCarta().getProductos().get(i).setNombre(nombre);
-							JOptionPane.showMessageDialog(ventana, "Nombre Cambiado", "Producto Actualizada",
-									JOptionPane.PLAIN_MESSAGE);
-						}
-					}
-					listProductos.repaint();
-				} catch (java.lang.NullPointerException e1) {
-					JOptionPane.showMessageDialog(ventana, "Tienes que seleccionar un producto", "Error al Anadir",
-							JOptionPane.ERROR_MESSAGE);
-				} catch (NombreVacioException e1) {
-					JOptionPane.showMessageDialog(ventana, "Campo Nombre Vacio", "Error al Anadir",
-							JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
-				}
 			}
 		});
 

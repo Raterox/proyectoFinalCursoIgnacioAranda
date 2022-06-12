@@ -58,8 +58,12 @@ public class Producto extends EntidadConNombre{
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
-		this.precio = precio;
+	public void setPrecio(float precio) throws PrecioCeroException {
+		if(precioCero(precio)) {
+			throw new PrecioCeroException("El precio no puede ser cero");
+		}else {
+			this.precio = precio;
+		}
 	}
 
 	public ArrayList<Alergeno> getAlergenos() {

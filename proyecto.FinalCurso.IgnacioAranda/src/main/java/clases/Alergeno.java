@@ -55,7 +55,7 @@ public class Alergeno extends EntidadConNombre{
 	 */
 	@Override
 	public String toString() {
-		return "Alergeno [Simbolo: " + simbolo + ", Nombre: " + super.toString() + "]";
+		return super.toString() + "||" + simbolo;
 	}
 	
 	
