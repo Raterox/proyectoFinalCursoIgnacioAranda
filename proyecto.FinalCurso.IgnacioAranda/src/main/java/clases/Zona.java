@@ -1,6 +1,8 @@
 package clases;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +42,20 @@ public class Zona extends EntidadConNombre{
 		txt.write("\nTotal Cuenta: " + total + " euros"); 
 		txt.flush();
 		txt.close();
-	}
+		
+		File lectura = new File("./documentosRestaurante/Zona" + super.getNombre() + "Mesa" + numero + ".txt");
+		try (BufferedReader br = new BufferedReader(new FileReader(lectura)))
+        {
+            String linea;
+            System.out.println("El siguiente contenido ha sido escrito: ");
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+		
 
 	@Override
 	public String toString() {

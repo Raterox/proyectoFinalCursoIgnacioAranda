@@ -12,7 +12,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 
-public class BotonRojo extends JButton{
+public class BotonRojo extends BotonBase{
 	public BotonRojo(String msg) {
 		super(msg);
 		estiloPorDefecto();
@@ -34,10 +34,8 @@ public class BotonRojo extends JButton{
 	}
 
 	private void estiloPorDefecto() {
-		this.setFont(new Font("Hack Nerd Font", Font.BOLD, 10));
 		this.setBackground(new Color(255, 0, 0));
 		this.setForeground(new Color(255, 158, 129));
-		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 	
 	public void playSound(String soundName) {
