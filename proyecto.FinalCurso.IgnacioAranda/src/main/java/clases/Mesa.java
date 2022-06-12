@@ -13,6 +13,9 @@ public class Mesa {
 		setCuenta(cuenta);
 		setNumero(numero);
 	}
+	public Mesa(byte numero) {
+		setNumero(numero);
+	}
 
 	public ArrayList<LineaDePedido> getCuenta() {
 		return cuenta;

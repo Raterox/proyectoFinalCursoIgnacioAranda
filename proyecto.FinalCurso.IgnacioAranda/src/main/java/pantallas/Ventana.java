@@ -34,14 +34,15 @@ public class Ventana extends JFrame {
 	private JPanel pantallaActual;
 	protected Restaurante restaurante;
 	protected Empleado empleadoLogado;
+	private ArrayList<Mesa> todasMesas;
 
-	public Ventana() {
+	public Ventana(String direccionLogo) {
 
 		pantallas = new HashMap<String, JPanel>();
 		pantallas.put("Login", new Login(this));
 
 		// Se que no funciona pero no entiendo porque
-		this.setIconImage(new ImageIcon("./Imagenes/logo.png").getImage());
+		this.setIconImage(new ImageIcon(direccionLogo).getImage());
 
 		this.setSize(720, 480);
 		this.setUndecorated(false);
@@ -123,11 +124,14 @@ public class Ventana extends JFrame {
 			cuenta3.add(linea1);
 			cuenta3.add(linea2);
 			
-						
+			todasMesas = new ArrayList<Mesa>();		
 
 			Mesa mesa1 = new Mesa(cuenta1, (byte) 1);
+			todasMesas.add(mesa1);
 			Mesa mesa2 = new Mesa(cuenta2, (byte) 2);
+			todasMesas.add(mesa2);
 			Mesa mesa3 = new Mesa(cuenta3, (byte) 3);
+			todasMesas.add(mesa3);
 
 			ArrayList<Mesa> salonMesas = new ArrayList<Mesa>();
 			salonMesas.add(mesa1);
@@ -188,10 +192,36 @@ public class Ventana extends JFrame {
 		case "Inicio":
 			this.pantallaActual = new Inicio(this);
 			break;
+		case "InicioAdmin":
+			this.pantallaActual = new InicioAdmin(this);
+			break;
+		case "GestionaZona":
+			this.pantallaActual = new GestionaZona(this);
+			break;
+		case "GestionaMesa":
+			this.pantallaActual = new GestionaMesa(this);
+			break;
+		case "GestionaProducto":
+			this.pantallaActual = new GestionaProducto(this);
+			break;
+//		case "GestionaAlergeno":
+//			this.pantallaActual = new GestionaAlergeno(this);
+//			break;
+//		case "GestionaEmpleado":
+//			this.pantallaActual = new GestionaEmpleado(this);
+//			break;
 		}
 		this.pantallaActual.setVisible(true);
 		this.setContentPane(pantallaActual);
 	}
+	public void setTodasMesas(ArrayList<Mesa> mesas) {
+		this.todasMesas = mesas;
+	}
+	
+	public ArrayList<Mesa> getTodasMesas(){
+		return this.todasMesas;
+	}
+	
 	public void cambiarAPantalla(String nombrePantalla, Zona z, Mesa m) {
 		this.pantallaActual.setVisible(false);
 		this.pantallaActual = null;
